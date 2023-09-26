@@ -9,10 +9,11 @@ import java.util.Set;
 public class LexicalAnalyser {
     static final Set<String> keywords = new HashSet<>(Set.of("var", "int", "real",
             "string", "bool", "while", "for", "loop" ,"if", "then", "else", "end",
-            "print", "empty", "func", "not", "true", "false", "is", "return", "range", "in"));
+            "print", "empty", "func", "not", "true", "false", "is", "return", "range", "in",
+            "readInt", "readString", "readReal"));
     static final Set<String> operators = new HashSet<>(Set.of("+", "-", "/", "*", ".", ":=", ">", "=",
             "<", ">=", "<=", "&&", "||", ":"));
-    static final Set<String> separators = new HashSet<>(Set.of("'", ".", ";","{","}","(", ")", "[","]", "’", "\"", ","));
+    static final Set<String> separators = new HashSet<>(Set.of(".", ";","{","}","(", ")", "[","]", ","));
 
 
     public static List<Token> analyze(List<String> input) {
@@ -49,7 +50,7 @@ public class LexicalAnalyser {
                     tokens.add(new Token("digit", 2, temp, start, pos ));
                 }
             } else if (ch == '\'' || ch == '"') {
-                int start = pos;
+                int start = pos + 1;
                 pos++;
                 while (pos < line.length() && line.charAt(pos) != ch) {
                     pos++;

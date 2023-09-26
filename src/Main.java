@@ -20,7 +20,7 @@ public class Main {
     }
     public static void main(String[] args) {
 
-        String fileName = "src/test.txt";
+        String fileName = "src/test.ddd";
         LexicalAnalyser.tokensToJSON(readFromFile(fileName));
 
     }

@@ -1,0 +1,7 @@
+var width := readInt;
+var height := readInt;
+var depth := readInt;
+
+var box := { w := width, h := height, d := depth };
+
+print "Cat is inside of the box of size ", width, "x", height, "var", depth, "?";
