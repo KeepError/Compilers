@@ -27,14 +27,14 @@ public class LexicalAnalyser {
             if (ch == ' ') {
                 pos++;
             } else if (separators.contains(ch + "")) {
-                tokens.add(new Token("separator", 7, ch + "", pos, pos + 1));
+                tokens.add(new Token(TokenType.SEPARATOR, 7, ch + "", pos, pos + 1));
                 pos++;
             } else if (operators.contains(ch + "")) {
                 if (pos + 1 < line.length() && operators.contains(ch + "" + line.charAt(pos + 1))) {
-                    tokens.add(new Token("operator", 5, ch + "" + line.charAt(pos + 1), pos, pos + 2));
+                    tokens.add(new Token(TokenType.OPERATOR, 5, ch + "" + line.charAt(pos + 1), pos, pos + 2));
                     pos += 2;
                 } else {
-                    tokens.add(new Token("operator", 5, ch + "",pos, pos + 1));
+                    tokens.add(new Token(TokenType.OPERATOR, 5, ch + "",pos, pos + 1));
                     pos++;
                 }
             } else if (isDigit(ch)) {
@@ -45,9 +45,9 @@ public class LexicalAnalyser {
 
                 String temp = line.substring(start, pos);
                 if (temp.contains(".")) {
-                    tokens.add(new Token("dot", 3, temp, start, pos));
+                    tokens.add(new Token(TokenType.DOT, 3, temp, start, pos));
                 } else {
-                    tokens.add(new Token("digit", 2, temp, start, pos ));
+                    tokens.add(new Token(TokenType.DIGIT, 2, temp, start, pos ));
                 }
             } else if (ch == '\'' || ch == '"') {
                 int start = pos + 1;
@@ -55,7 +55,7 @@ public class LexicalAnalyser {
                 while (pos < line.length() && line.charAt(pos) != ch) {
                     pos++;
                 }
-                tokens.add(new Token("string", 4, line.substring(start, pos), start, pos));
+                tokens.add(new Token(TokenType.STRING, 4, line.substring(start, pos), start, pos));
                 pos++;
             } else if (isLetter(ch)) {
                 int start = pos;
@@ -64,9 +64,9 @@ public class LexicalAnalyser {
                 }
                 String temp = line.substring(start, pos);
                 if (keywords.contains(temp)) {
-                    tokens.add(new Token("key_word", 6, temp , start, pos));
+                    tokens.add(new Token(TokenType.KEYWORD, 6, temp , start, pos));
                 } else {
-                    tokens.add(new Token("identification", 1, temp , start, pos));
+                    tokens.add(new Token(TokenType.IDENTIFIER, 1, temp , start, pos));
                 }
             }        }
 

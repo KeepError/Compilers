@@ -1,6 +1,17 @@
+enum TokenType {
+    SEPARATOR,
+    OPERATOR,
+    KEYWORD,
+    IDENTIFIER,
+    DOT,
+    DIGIT,
+    STRING,
+}
+
+
 public class Token {
 
-    private String type;
+    private TokenType type;
     private int id;
     private String token;
 
@@ -8,7 +19,7 @@ public class Token {
 
     private int end;
 
-    public Token(String type, int id, String token, int start, int end) {
+    public Token(TokenType type, int id, String token, int start, int end) {
         this.type = type;
         this.id = id;
         this.token = token;
@@ -16,12 +27,20 @@ public class Token {
         this.end = end;
 
     }
-    public String getType() {
+    public TokenType getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(TokenType type) {
         this.type = type;
+    }
+
+    public Boolean isType(TokenType type) {
+        return this.type.equals(type);
+    }
+
+    public Boolean isToken(String token) {
+        return this.token.equals(token);
     }
 
     public int getId() {
@@ -59,7 +78,7 @@ public class Token {
     @Override
     public String toString() {
         return "Token{" +
-                "type='" + type + '\'' +
+                "type=" + type +
                 ", id=" + id +
                 ", token='" + token + '\'' +
                 ", start_position='" + start + '\'' +
