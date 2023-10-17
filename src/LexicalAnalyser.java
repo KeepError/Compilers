@@ -8,17 +8,16 @@ import java.util.Set;
 
 public class LexicalAnalyser {
     static final Set<String> keywords = new HashSet<>(Set.of("var", "int", "real",
-            "string", "bool", "while", "for", "loop" ,"if", "then", "else", "end",
+            "string", "bool", "while", "for", "loop", "if", "then", "else", "end",
             "print", "empty", "func", "not", "true", "false", "is", "return", "range", "in",
             "readInt", "readString", "readReal"));
     static final Set<String> operators = new HashSet<>(Set.of("+", "-", "/", "*", ".", ":=", ">", "=",
             "<", ">=", "<=", "&&", "||", ":"));
-    static final Set<String> separators = new HashSet<>(Set.of(".", ";","{","}","(", ")", "[","]", ","));
-
+    static final Set<String> separators = new HashSet<>(Set.of(".", ";", "{", "}", "(", ")", "[", "]", ","));
 
     public static List<Token> analyze(List<String> input) {
         String line = preprocess(input);
-        //System.out.println("Preprocessed input:\n  " + line);
+        // System.out.println("Preprocessed input:\n " + line);
         List<Token> tokens = new ArrayList<>();
         int pos = 0;
 
@@ -34,7 +33,7 @@ public class LexicalAnalyser {
                     tokens.add(new Token(TokenType.OPERATOR, 5, ch + "" + line.charAt(pos + 1), pos, pos + 2));
                     pos += 2;
                 } else {
-                    tokens.add(new Token(TokenType.OPERATOR, 5, ch + "",pos, pos + 1));
+                    tokens.add(new Token(TokenType.OPERATOR, 5, ch + "", pos, pos + 1));
                     pos++;
                 }
             } else if (isDigit(ch)) {
@@ -47,7 +46,7 @@ public class LexicalAnalyser {
                 if (temp.contains(".")) {
                     tokens.add(new Token(TokenType.DOT, 3, temp, start, pos));
                 } else {
-                    tokens.add(new Token(TokenType.DIGIT, 2, temp, start, pos ));
+                    tokens.add(new Token(TokenType.DIGIT, 2, temp, start, pos));
                 }
             } else if (ch == '\'' || ch == '"') {
                 int start = pos + 1;
@@ -55,7 +54,7 @@ public class LexicalAnalyser {
                 while (pos < line.length() && line.charAt(pos) != ch) {
                     pos++;
                 }
-                tokens.add(new Token(TokenType.STRING, 4, line.substring(start, pos), start, pos));
+                tokens.add(new Token(TokenType.STRING, 4, line.substring(start - 1, pos + 1), start, pos));
                 pos++;
             } else if (isLetter(ch)) {
                 int start = pos;
@@ -64,11 +63,12 @@ public class LexicalAnalyser {
                 }
                 String temp = line.substring(start, pos);
                 if (keywords.contains(temp)) {
-                    tokens.add(new Token(TokenType.KEYWORD, 6, temp , start, pos));
+                    tokens.add(new Token(TokenType.KEYWORD, 6, temp, start, pos));
                 } else {
-                    tokens.add(new Token(TokenType.IDENTIFIER, 1, temp , start, pos));
+                    tokens.add(new Token(TokenType.IDENTIFIER, 1, temp, start, pos));
                 }
-            }        }
+            }
+        }
 
         for (Token token : tokens) {
             System.out.println(token);
@@ -76,7 +76,6 @@ public class LexicalAnalyser {
 
         return tokens;
     }
-
 
     private static String preprocess(List<String> input) {
         StringBuilder result = new StringBuilder();
@@ -107,17 +106,15 @@ public class LexicalAnalyser {
         return result.toString();
     }
 
-
     private static boolean isLetter(char ch) {
-        return (ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z') || ch=='_';
+        return (ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z') || ch == '_';
     }
 
     private static boolean isDigit(char ch) {
         return ch >= '0' && ch <= '9';
     }
 
-
-    public static void tokensToJSON(List<String> input){
+    public static void tokensToJSON(List<String> input) {
 
         StringBuilder json = new StringBuilder("[");
         for (Token token : analyze(input)) {
