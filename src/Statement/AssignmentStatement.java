@@ -18,9 +18,7 @@ public class AssignmentStatement extends Statement {
 
     public static boolean isStart(List<Token> tokens, int startTokenIndex) {
         try {
-            System.out.println("Hello");
             Token nextToken = tokens.get(startTokenIndex + 1);
-            System.out.println(IdentifierExpression.isStart(tokens, startTokenIndex) && nextToken.isType(TokenType.OPERATOR) && nextToken.isToken(":="));
             return IdentifierExpression.isStart(tokens, startTokenIndex) && nextToken.isType(TokenType.OPERATOR) && nextToken.isToken(":=");
         } catch (Exception e) {
             return false;

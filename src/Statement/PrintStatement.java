@@ -24,7 +24,6 @@ public class PrintStatement extends Expression {
 
         Pair<List<Expression>, Integer> params = PrintStatement.parseParams(tokens, tokenIndex);
         tokenIndex += params.secondValue();
-        System.out.println(params.firstValue());
 
         return new ParseResult<PrintStatement>(new PrintStatement(params.firstValue()), tokenIndex - startTokenIndex);
     }
