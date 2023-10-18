@@ -1,12 +1,4 @@
-enum TokenType {
-    SEPARATOR,
-    OPERATOR,
-    KEYWORD,
-    IDENTIFIER,
-    DOT,
-    DIGIT,
-    STRING,
-}
+package Token;
 
 
 public class Token {
@@ -77,7 +69,7 @@ public class Token {
 
     @Override
     public String toString() {
-        return "Token{" +
+        return "Token.Token{" +
                 "type=" + type +
                 ", id=" + id +
                 ", token='" + token + '\'' +

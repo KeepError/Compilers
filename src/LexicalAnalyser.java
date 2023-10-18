@@ -1,3 +1,6 @@
+import Token.Token;
+import Token.TokenType;
+
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -8,7 +11,7 @@ import java.util.Set;
 
 public class LexicalAnalyser {
     static final Set<String> keywords = new HashSet<>(Set.of("var", "int", "real",
-            "string", "bool", "while", "for", "loop", "if", "then", "else", "end",
+            "string", "bool", "while", "for", "loop", "if", "then", "else", "end", 
             "print", "empty", "func", "not", "true", "false", "is", "return", "range", "in",
             "readInt", "readString", "readReal"));
     static final Set<String> operators = new HashSet<>(Set.of("+", "-", "/", "*", ".", ":=", ">", "=",
@@ -67,6 +70,9 @@ public class LexicalAnalyser {
                 } else {
                     tokens.add(new Token(TokenType.IDENTIFIER, 1, temp, start, pos));
                 }
+            }
+            else {
+                throw new RuntimeException("Error in Lexical analyzer: Cannot recognize token: " + ch);
             }
         }
 

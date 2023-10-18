@@ -1,3 +1,7 @@
+import Token.Token;
+import Statement.ProgramStatement;
+import Statement.TokenError;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -16,12 +20,21 @@ public class Main {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return  inputLines;
+        return inputLines;
     }
     public static void main(String[] args) {
 
         String fileName = "src/test.ddd";
-        LexicalAnalyser.tokensToJSON(readFromFile(fileName));
-
+        // LexicalAnalyser.tokensToJSON(readFromFile(fileName));
+        List<Token> tokens = LexicalAnalyser.analyze(readFromFile(fileName));
+        // SyntaxAnalyser syntaxAnalyser = new SyntaxAnalyser(tokens);
+        try {
+            // ProgramStatement programStatement = syntaxAnalyser.parse();
+            ProgramStatement programStatement = SyntaxAnalyser.analyse(tokens);
+            System.out.println(programStatement);
+        } catch (TokenError e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
     }
 }
