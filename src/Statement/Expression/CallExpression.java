@@ -20,8 +20,12 @@ public class CallExpression extends Expression {
     }
 
     static public boolean isStart(List<Token> tokens, int startTokenIndex) {
-        Token nextToken = tokens.get(startTokenIndex+1);
-        return IdentifierExpression.isStart(tokens, startTokenIndex) && nextToken.isType(TokenType.SEPARATOR) && nextToken.isToken("(");
+        try {
+            Token nextToken = tokens.get(startTokenIndex+1);
+            return IdentifierExpression.isStart(tokens, startTokenIndex) && nextToken.isType(TokenType.SEPARATOR) && nextToken.isToken("(");
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     static public ParseResult<CallExpression> parse(List<Token> tokens, int startTokenIndex) {
@@ -53,7 +57,7 @@ public class CallExpression extends Expression {
             if (!previousTokenIsSeparator && token.isToken(",")) {
                 previousTokenIsSeparator = true;
                 tokenIndex++;
-            } else if (previousTokenIsSeparator && token.isType(TokenType.IDENTIFIER)) {
+            } else if (previousTokenIsSeparator) {
                 previousTokenIsSeparator = false;
                 ParseResult<Expression> paramParseResult = Expression.parse(tokens, tokenIndex);
                 tokenIndex = paramParseResult.tokensParsed() + tokenIndex;

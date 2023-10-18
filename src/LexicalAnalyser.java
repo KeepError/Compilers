@@ -12,8 +12,8 @@ import java.util.Set;
 public class LexicalAnalyser {
     static final Set<String> keywords = new HashSet<>(Set.of("var", "int", "real",
             "string", "bool", "while", "for", "loop", "if", "then", "else", "end", 
-            "print", "empty", "func", "not", "true", "false", "is", "return", "range", "in",
-            "readInt", "readString", "readReal"));
+            "print", "empty", "func", "not", "true", "false", "is", "return", "in"
+            ));
     static final Set<String> operators = new HashSet<>(Set.of("+", "-", "/", "*", ".", ":=", ">", "=",
             "<", ">=", "<=", "&&", "||", ":"));
     static final Set<String> separators = new HashSet<>(Set.of(".", ";", "{", "}", "(", ")", "[", "]", ","));

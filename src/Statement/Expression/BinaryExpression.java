@@ -19,10 +19,15 @@ class BinaryExpression extends Expression {
     }
 
     static public boolean isStart(List<Token> tokens, int startTokenIndex) {
-        int nextTokenIndex = startTokenIndex + 1;
-        Token nextToken = tokens.get(nextTokenIndex);
+        try {
+            int nextTokenIndex = startTokenIndex + 1;
+            Token nextToken = tokens.get(nextTokenIndex);
 
-        return nextToken.isType(TokenType.OPERATOR);
+            return nextToken.isType(TokenType.OPERATOR);
+        } catch (Exception e) {
+            return false;
+        }
+        
     }
 
     public static ParseResult<BinaryExpression> parse(List<Token> tokens, int startTokenIndex) {

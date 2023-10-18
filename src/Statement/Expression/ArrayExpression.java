@@ -41,7 +41,6 @@ public class ArrayExpression extends Expression {
             token = tokens.get(tokenIndex);
         }
         tokenIndex++;
-        System.out.println(tokenIndex);
         return new ParseResult<ArrayExpression>(new ArrayExpression(expressions), tokenIndex - startTokenIndex);
     }
 

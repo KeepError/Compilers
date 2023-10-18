@@ -38,7 +38,7 @@ public class ForStatement extends Statement {
         token = tokens.get(tokenIndex);
 
         ParseResult<Expression> ofExpression = Expression.parse(tokens, tokenIndex);
-        tokenIndex += 1;
+        tokenIndex += ofExpression.tokensParsed();
         token = tokens.get(tokenIndex);
 
         if (!token.isToken("loop"))

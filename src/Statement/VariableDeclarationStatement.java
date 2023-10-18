@@ -7,28 +7,22 @@ import Token.TokenType;
 
 import java.util.List;
 
-public class AssignmentStatement extends Statement {
+public class VariableDeclarationStatement extends Statement {
     private final IdentifierExpression identifier;
     private final Expression expression;
 
-    public AssignmentStatement(IdentifierExpression identifier, Expression expression) {
+    public VariableDeclarationStatement(IdentifierExpression identifier, Expression expression) {
         this.identifier = identifier;
         this.expression = expression;
     }
 
-    public static boolean isStart(List<Token> tokens, int startTokenIndex) {
-        try {
-            System.out.println("Hello");
-            Token nextToken = tokens.get(startTokenIndex + 1);
-            System.out.println(IdentifierExpression.isStart(tokens, startTokenIndex) && nextToken.isType(TokenType.OPERATOR) && nextToken.isToken(":="));
-            return IdentifierExpression.isStart(tokens, startTokenIndex) && nextToken.isType(TokenType.OPERATOR) && nextToken.isToken(":=");
-        } catch (Exception e) {
-            return false;
-        }
+    public static boolean isStart(List<Token> tokens, int start) {
+        Token token = tokens.get(start);
+        return token.isType(TokenType.KEYWORD) && token.isToken("var");
     }
 
     public static ParseResult parse(List<Token> tokens, int start) throws TokenError {
-        int tokenIndex = start;
+        int tokenIndex = start + 1;
         Token token = tokens.get(tokenIndex);
         if (!IdentifierExpression.isStart(tokens, tokenIndex))
             throw new UnexpectedTokenError(token);
@@ -39,16 +33,16 @@ public class AssignmentStatement extends Statement {
             throw new UnexpectedTokenError(token);
         ParseResult expression = Expression.parse(tokens, tokenIndex + 1);
         tokenIndex += expression.tokensParsed();
-        AssignmentStatement assignmentStatement = new AssignmentStatement((IdentifierExpression) identifier.statement(), (Expression) expression.statement());
+        VariableDeclarationStatement statement = new VariableDeclarationStatement((IdentifierExpression) identifier.statement(), (Expression) expression.statement());
         tokenIndex++;
         if (!tokens.get(tokenIndex).isToken(";"))
             throw new UnexpectedTokenError(tokens.get(tokenIndex));
         tokenIndex++;
-        return new ParseResult(assignmentStatement, tokenIndex - start);
+        return new ParseResult(statement, tokenIndex - start);
     }
 
     @Override
     public String toString() {
-        return "AssignmentStatement{identifier='" + identifier + "', expression=" + expression + "}";
+        return "VariableDeclaration{identifier='" + identifier + "', expression=" + expression + "}";
     }
 }
