@@ -13,6 +13,10 @@ public class IdentifierExpression extends Expression {
         this.name = name;
     }
 
+    public String name() {
+        return name;
+    }
+
     static public boolean isStart(List<Token> tokens, int startTokenIndex) {
         Token token = tokens.get(startTokenIndex);
         return token.isType(TokenType.IDENTIFIER);

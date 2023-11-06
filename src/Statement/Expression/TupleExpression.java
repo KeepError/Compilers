@@ -16,6 +16,10 @@ public class TupleExpression extends Expression {
         this.expressionsMap = expressionsMap;
     }
 
+    public Map<IdentifierExpression, Expression> getExpressionsMap() {
+        return expressionsMap;
+    }
+
     static public boolean isStart(List<Token> tokens, int startTokenIndex) {
         Token token = tokens.get(startTokenIndex);
         return token.isType(TokenType.SEPARATOR) && token.isToken("{");

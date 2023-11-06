@@ -59,4 +59,8 @@ public class PrintStatement extends Expression {
 
         return new Pair<List<Expression>, Integer>(params, tokenIndex - start);
     }
+
+    public List<Expression> getParams() {
+        return this.params;
+    }
 }

@@ -16,6 +16,10 @@ public class BlockStatement extends Statement {
         this.statements = statements;
     }
 
+    public List<Statement> statements() {
+        return statements;
+    }
+
     // public void addStatement(Statement statement) {
     //     statements.add(statement);
     // }

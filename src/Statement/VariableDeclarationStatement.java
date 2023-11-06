@@ -16,6 +16,14 @@ public class VariableDeclarationStatement extends Statement {
         this.expression = expression;
     }
 
+    public IdentifierExpression identifier() {
+        return identifier;
+    }
+
+    public Expression expression() {
+        return expression;
+    }
+
     public static boolean isStart(List<Token> tokens, int start) {
         Token token = tokens.get(start);
         return token.isType(TokenType.KEYWORD) && token.isToken("var");

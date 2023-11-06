@@ -15,6 +15,10 @@ public class ArrayExpression extends Expression {
         this.expressions = expressions;
     }
 
+    public List<Expression> getExpressions() {
+        return expressions;
+    }
+
     static public boolean isStart(List<Token> tokens, int startTokenIndex) {
         Token token = tokens.get(startTokenIndex);
         return token.isType(TokenType.SEPARATOR) && token.isToken("[");

@@ -49,4 +49,12 @@ public class AssignmentStatement extends Statement {
     public String toString() {
         return "AssignmentStatement{identifier='" + identifier + "', expression=" + expression + "}";
     }
+
+    public Expression getExpression() {
+        return this.expression;
+    }
+
+    public IdentifierExpression getIdentifier() {
+        return this.identifier;
+    }
 }

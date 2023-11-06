@@ -54,4 +54,16 @@ public class ForStatement extends Statement {
     public String toString() {
         return "ForStatement{identifier="+ identifier +",typeIndicator=" + ofExpression + ",body=[" + body + "]";
     }
+
+    public IdentifierExpression getIdentifier() {
+        return this.identifier;
+    }
+
+    public Expression getOfExpression() {
+        return this.ofExpression;
+    }
+
+    public BlockStatement getBody() {
+        return this.body;
+    }
 }

@@ -11,6 +11,10 @@ public class ProgramStatement extends Statement {
         this.body = body;
     }
 
+    public BlockStatement body() {
+        return body;
+    }
+
     // public void addBodyStatement(Statement statement) {
     //     body.addStatement(statement);
     // }

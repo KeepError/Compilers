@@ -7,7 +7,7 @@ import Statement.UnexpectedTokenError;
 
 import java.util.List;
 
-class BinaryExpression extends Expression {
+public class BinaryExpression extends Expression {
     private final Expression left;
     private final Expression right;
     private final String operator;

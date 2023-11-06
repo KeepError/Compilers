@@ -79,4 +79,16 @@ public class FunctionDeclaration extends Statement {
         
         return new Pair<List<IdentifierExpression>, Integer>(params, tokenIndex - start);
     }
+
+    public BlockStatement getBody() {
+        return this.body;
+    }
+    
+    public IdentifierExpression getIdentifier() {
+        return this.identifier;
+    }
+
+    public List<IdentifierExpression> getParams() {
+        return this.params;
+    }
 }

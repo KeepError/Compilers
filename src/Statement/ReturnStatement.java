@@ -39,4 +39,8 @@ public class ReturnStatement extends Expression {
     public String toString() {
         return "ReturnStatement{expression=" + expression + "}";
     }
+
+    public Expression getExpression() {
+        return this.expression;
+    }
 }

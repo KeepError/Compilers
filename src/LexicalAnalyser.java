@@ -77,7 +77,7 @@ public class LexicalAnalyser {
         }
 
         for (Token token : tokens) {
-            System.out.println(token);
+            // System.out.println(token);
         }
 
         return tokens;

@@ -43,4 +43,12 @@ public class IfStatement extends Statement {
     public String toString() {
         return "IfStatement{test="+ test +",body=[" + body + "]";
     }
+
+    public BlockStatement getBody() {
+        return this.body;
+    }
+    
+    public Expression getTest() {
+        return this.test;
+    }
 }

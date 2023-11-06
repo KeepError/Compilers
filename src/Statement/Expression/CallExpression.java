@@ -19,6 +19,14 @@ public class CallExpression extends Expression {
         this.params = params;
     }
 
+    public IdentifierExpression getCallee() {
+        return callee;
+    }
+
+    public List<Expression> getParams() {
+        return params;
+    }
+
     static public boolean isStart(List<Token> tokens, int startTokenIndex) {
         try {
             Token nextToken = tokens.get(startTokenIndex+1);

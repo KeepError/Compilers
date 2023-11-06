@@ -42,4 +42,12 @@ public class WhileStatement extends Statement {
     public String toString() {
         return "WhileStatement{test="+ test +",body=[" + body + "]";
     }
+
+    public BlockStatement getBody() {
+        return body;
+    }
+    
+    public Expression getTest() {
+        return test;
+    }
 }

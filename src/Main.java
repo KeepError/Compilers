@@ -31,7 +31,8 @@ public class Main {
         try {
             // ProgramStatement programStatement = syntaxAnalyser.parse();
             ProgramStatement programStatement = SyntaxAnalyser.analyse(tokens);
-            System.out.println(programStatement);
+            // System.out.println(programStatement);
+            SemanticAnalyser.analyse(programStatement);
         } catch (TokenError e) {
             System.out.println(e.getMessage());
             e.printStackTrace();
