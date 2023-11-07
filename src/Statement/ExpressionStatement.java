@@ -27,4 +27,8 @@ public class ExpressionStatement extends Statement {
     public String toString() {
         return "ExpressionStatement{expression=" + expression + "}";
     }
+
+    public Expression getExpression() {
+        return this.expression;
+    }
 }

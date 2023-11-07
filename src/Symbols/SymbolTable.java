@@ -1,50 +1,42 @@
 package Symbols;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Stack;
 
 public class SymbolTable {
-    private Stack<Map<String, Symbol>> scopes;
+    private Stack<Scope> scopes;
 
     public SymbolTable() {
         scopes = new Stack<>();
     }
 
-    public void enterScope() {
-        scopes.push(new HashMap<>());
+    public void enterScope(ScopeType scopeType) {
+        scopes.push(new Scope(scopeType));
     }
 
     public void exitScope() {
         scopes.pop();
     }
 
-    public void addSymbol(String name, Symbol symbol) {
-        scopes.peek().put(name, symbol);
+    public Scope getCurrentScope() {
+        return scopes.peek();
     }
 
-    private Symbol lookupSymbol(String name) {
-        for (int i = scopes.size() - 1; i >= 0; i--) {
-            Symbol symbol = scopes.get(i).get(name);
-            if (symbol != null) {
-                return symbol;
-            }
-        }
-        return null;
+    public void addSymbol(String name, Symbol symbol) {
+        scopes.peek().addSymbol(name, symbol);
     }
 
     public LiteralSymbol lookupVariableSymbol(String name) {
-        Symbol symbol = lookupSymbol(name);
-        if (symbol instanceof LiteralSymbol) {
-            return (LiteralSymbol) symbol;
+        for (Scope scope : scopes) {
+            LiteralSymbol symbol = scope.findLiteralSymbol(name);
+            if (symbol != null) return symbol;
         }
         return null;
     }
 
     public FunctionSymbol lookupFunctionSymbol(String name) {
-        Symbol symbol = lookupSymbol(name);
-        if (symbol instanceof FunctionSymbol) {
-            return (FunctionSymbol) symbol;
+        for (Scope scope : scopes) {
+            FunctionSymbol symbol = scope.findFunctionSymbol(name);
+            if (symbol != null) return symbol;
         }
         return null;
     }

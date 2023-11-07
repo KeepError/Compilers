@@ -14,6 +14,6 @@ public class IdentifierExpressionAnalyser {
     }
 
     public static void declare(SymbolTable symbolTable, IdentifierExpression identifier, Symbol symbol) {
-       symbolTable.addSymbol(identifier.name(), symbol);
+        symbolTable.addSymbol(identifier.name(), symbol);
     }
 }
