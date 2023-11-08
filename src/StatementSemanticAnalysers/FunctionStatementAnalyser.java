@@ -21,10 +21,10 @@ public class FunctionStatementAnalyser {
 
         IdentifierExpressionAnalyser.declare(symbolTable, functionDeclaration.getIdentifier(), symbol);
         symbolTable.enterScope(ScopeType.FUNCTION);
-        BlockStatementAnalyser.analyse(symbolTable, functionDeclaration.getBody());
         for (IdentifierExpression identifierExpression : functionDeclaration.getParams()) {
             IdentifierExpressionAnalyser.declare(symbolTable, identifierExpression, literalSymbolsMap.get(identifierExpression.name()));
         }
+        BlockStatementAnalyser.analyse(symbolTable, functionDeclaration.getBody());
         symbolTable.exitScope();
     }
 }

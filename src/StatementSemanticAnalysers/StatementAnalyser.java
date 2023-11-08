@@ -1,7 +1,6 @@
 package StatementSemanticAnalysers;
 
 import Statement.Statement;
-import Statement.Expression.Expression;
 import Statement.VariableDeclarationStatement;
 import Statement.IfStatement;
 import Statement.WhileStatement;
@@ -15,7 +14,7 @@ import StatementSemanticAnalysers.Expression.ExpressionAnalyser;
 import Symbols.SymbolTable;
 
 public class StatementAnalyser {
-    public static void analyse(SymbolTable symbolTable, Statement statement) throws SemanticAnalyserError {
+    public static void analyse(SymbolTable symbolTable, Statement statement) throws SemanticAnalyserError {  
         if (statement instanceof VariableDeclarationStatement) {
             VariableDeclarationStatementAnalyser.analyse(symbolTable, (VariableDeclarationStatement) statement);
         } else if (statement instanceof IfStatement) {

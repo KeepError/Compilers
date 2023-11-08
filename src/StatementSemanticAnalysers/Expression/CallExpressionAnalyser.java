@@ -10,7 +10,6 @@ import Symbols.FunctionSymbol;
 public class CallExpressionAnalyser {
     public static void analyse(SymbolTable symbolTable, CallExpression statement) throws SemanticAnalyserError {
         IdentifierExpression callee = statement.getCallee();
-        IdentifierExpressionAnalyser.analyse(symbolTable, callee);
 
         String calleeName = callee.name();
 
