@@ -1,41 +1,10 @@
-import Token.Token;
-import Statement.ProgramStatement;
-import Statement.TokenError;
-
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import JSON.JSONConverter;
+import LexicalAnalysis.Tokens.IdentifierToken;
 
 public class Main {
-
-    public static List<String> readFromFile(String fileName){
-        List<String> inputLines = new ArrayList<>();
-        try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                inputLines.add(line);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return inputLines;
-    }
     public static void main(String[] args) {
-
-        String fileName = "src/test.ddd";
-        // LexicalAnalyser.tokensToJSON(readFromFile(fileName));
-        List<Token> tokens = LexicalAnalyser.analyze(readFromFile(fileName));
-        // SyntaxAnalyser syntaxAnalyser = new SyntaxAnalyser(tokens);
-        try {
-            // ProgramStatement programStatement = syntaxAnalyser.parse();
-            ProgramStatement programStatement = SyntaxAnalyser.analyse(tokens);
-            // System.out.println(programStatement);
-            SemanticAnalyser.analyse(programStatement);
-        } catch (TokenError e) {
-            System.out.println(e.getMessage());
-            e.printStackTrace();
-        }
+        IdentifierToken token = new IdentifierToken(1, 2, 3, "hi");
+        String json = JSONConverter.convert(token);
+        System.out.println(json);
     }
 }
