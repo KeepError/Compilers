@@ -1,6 +1,6 @@
-package Lexer;
+package LexicalAnalysis;
 
-import Lexer.Tokens.*;
+import LexicalAnalysis.Tokens.*;
 
 import java.util.ArrayList;
 import java.util.List;

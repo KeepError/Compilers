@@ -1,4 +1,4 @@
-package Lexer.Tokens;
+package LexicalAnalysis.Tokens;
 
 import java.util.*;
 

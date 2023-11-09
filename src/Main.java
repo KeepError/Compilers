@@ -1,7 +1,7 @@
 import JSON.JSONSerializer;
-import Lexer.LexicalAnalyser;
-import Lexer.LexicalAnalyserError;
-import Lexer.Tokens.Token;
+import LexicalAnalysis.LexicalAnalyser;
+import LexicalAnalysis.LexicalAnalyserError;
+import LexicalAnalysis.Tokens.Token;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
