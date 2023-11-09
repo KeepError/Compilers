@@ -40,7 +40,7 @@ public class LexicalAnalyser {
         if (result != null) return result;
         result = OperatorToken.parse(lines, line, startColumn);
         if (result != null) return result;
-        result = FloatToken.parse(lines, line, startColumn);
+        result = RealToken.parse(lines, line, startColumn);
         if (result != null) return result;
         result = IntegerToken.parse(lines, line, startColumn);
         if (result != null) return result;
