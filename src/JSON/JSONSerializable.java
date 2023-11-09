@@ -2,6 +2,6 @@ package JSON;
 
 import java.util.Map;
 
-public interface JSONConvertable {
+public interface JSONSerializable {
     Map<String, Object> getJSONFields();
 }
