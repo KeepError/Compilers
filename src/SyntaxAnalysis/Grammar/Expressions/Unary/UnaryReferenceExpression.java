@@ -1,4 +1,4 @@
-package SyntaxAnalysis.Grammar.Expressions;
+package SyntaxAnalysis.Grammar.Expressions.Unary;
 
 import LexicalAnalysis.Tokens.Token;
 import SyntaxAnalysis.Grammar.References.Reference;
@@ -7,22 +7,22 @@ import SyntaxAnalysis.Grammar.SyntaxError;
 import java.util.List;
 import java.util.Map;
 
-public class UnaryExpression extends Expression {
+public class UnaryReferenceExpression extends UnaryExpression {
     private final Reference reference;
 
-    public UnaryExpression(int startToken, int tokensCount, Reference reference) {
+    public UnaryReferenceExpression(int startToken, int tokensCount, Reference reference) {
         super(startToken, tokensCount);
         this.reference = reference;
     }
 
-    public static UnaryExpression findNext(List<Token> tokens, int startToken) throws SyntaxError {
+    public static UnaryReferenceExpression findNext(List<Token> tokens, int startToken) throws SyntaxError {
         Reference reference = Reference.findNext(tokens, startToken);
         if (reference == null) return null;
-        return new UnaryExpression(startToken, reference.getTokensCount(), reference);
+        return new UnaryReferenceExpression(startToken, reference.getTokensCount(), reference);
     }
 
-    public static UnaryExpression findInRange(List<Token> tokens, int startToken, int endToken) throws SyntaxError {
-        UnaryExpression unaryExpression = findNext(tokens, startToken);
+    public static UnaryReferenceExpression findInRange(List<Token> tokens, int startToken, int endToken) throws SyntaxError {
+        UnaryReferenceExpression unaryExpression = findNext(tokens, startToken);
         if (unaryExpression == null || unaryExpression.getTokensCount() != endToken - startToken + 1) return null;
         return unaryExpression;
     }
