@@ -1,10 +1,7 @@
 package SyntaxAnalysis.Grammar.References;
 
 import LexicalAnalysis.Tokens.IdentifierToken;
-import LexicalAnalysis.Tokens.KeywordToken;
 import LexicalAnalysis.Tokens.Token;
-import SyntaxAnalysis.Grammar.Expressions.Expression;
-import SyntaxAnalysis.Grammar.Statements.Statement;
 import SyntaxAnalysis.Grammar.SyntaxError;
 
 import java.util.List;

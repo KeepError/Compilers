@@ -33,7 +33,6 @@ public class EmptyLiteral extends Literal {
 
     @Override
     public Map<String, Object> getJSONFields() {
-        Map<String, Object> fields = super.getJSONFields();
-        return fields;
+        return super.getJSONFields();
     }
 }

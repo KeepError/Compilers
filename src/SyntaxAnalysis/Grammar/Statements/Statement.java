@@ -12,7 +12,6 @@ public abstract class Statement extends Grammar {
     }
 
     public static Statement findNext(List<Token> tokens, int startToken) throws SyntaxError {
-        Statement statement = ReturnStatement.findNext(tokens, startToken);
-        return statement;
+        return ReturnStatement.findNext(tokens, startToken);
     }
 }

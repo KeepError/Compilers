@@ -2,7 +2,6 @@ package SyntaxAnalysis.Grammar.Literals;
 
 import LexicalAnalysis.Tokens.IntegerToken;
 import LexicalAnalysis.Tokens.Token;
-import SyntaxAnalysis.Grammar.Expressions.PrimaryExpression;
 import SyntaxAnalysis.Grammar.SyntaxError;
 
 import java.util.List;

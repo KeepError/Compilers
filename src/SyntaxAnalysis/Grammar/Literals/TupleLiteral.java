@@ -2,7 +2,6 @@ package SyntaxAnalysis.Grammar.Literals;
 
 import LexicalAnalysis.Tokens.SeparatorToken;
 import LexicalAnalysis.Tokens.Token;
-import SyntaxAnalysis.Grammar.Expressions.Expression;
 import SyntaxAnalysis.Grammar.SyntaxError;
 
 import java.util.ArrayList;

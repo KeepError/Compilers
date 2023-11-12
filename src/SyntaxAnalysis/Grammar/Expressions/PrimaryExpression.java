@@ -1,6 +1,5 @@
 package SyntaxAnalysis.Grammar.Expressions;
 
-import LexicalAnalysis.Tokens.IntegerToken;
 import LexicalAnalysis.Tokens.Token;
 import SyntaxAnalysis.Grammar.Literals.Literal;
 import SyntaxAnalysis.Grammar.SyntaxError;

@@ -1,6 +1,5 @@
 package SyntaxAnalysis.Grammar.References;
 
-import LexicalAnalysis.Tokens.IdentifierToken;
 import LexicalAnalysis.Tokens.SeparatorToken;
 import LexicalAnalysis.Tokens.Token;
 import SyntaxAnalysis.Grammar.Expressions.Expression;
@@ -37,12 +36,11 @@ public class ArrayElementReference extends Reference {
         if (!(token instanceof SeparatorToken && ((SeparatorToken) token).getSeparator().equals("]"))) {
             return null;
         }
-        int lastBracket = endToken;
         Integer firstBracket = Helpers.searchSkippingBrackets(tokens, endToken - 1, token1 -> token1 instanceof SeparatorToken && ((SeparatorToken) token1).getSeparator().equals("["));
         if (firstBracket == null || firstBracket < startToken) {
             return null;
         }
-        Expression expression = Expression.findInRange(tokens, firstBracket + 1, lastBracket - 1);
+        Expression expression = Expression.findInRange(tokens, firstBracket + 1, endToken - 1);
         if (expression == null) {
             return null;
         }
