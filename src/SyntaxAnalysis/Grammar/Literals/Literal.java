@@ -26,6 +26,8 @@ public abstract class Literal extends Grammar {
         literal = ArrayLiteral.findNext(tokens, startToken);
         if (literal != null) return literal;
         literal = TupleLiteral.findNext(tokens, startToken);
+        if (literal != null) return literal;
+        literal = FunctionLiteral.findNext(tokens, startToken);
         return literal;
     }
 
@@ -44,6 +46,8 @@ public abstract class Literal extends Grammar {
         literal = ArrayLiteral.findInRange(tokens, startToken, endToken);
         if (literal != null) return literal;
         literal = TupleLiteral.findInRange(tokens, startToken, endToken);
+        if (literal != null) return literal;
+        literal = FunctionLiteral.findInRange(tokens, startToken, endToken);
         return literal;
     }
 }
