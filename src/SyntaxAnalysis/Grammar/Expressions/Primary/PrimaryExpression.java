@@ -16,6 +16,8 @@ public abstract class PrimaryExpression extends Expression {
         primaryExpression = PrimaryLiteralExpression.findNext(tokens, startToken);
         if (primaryExpression != null) return primaryExpression;
         primaryExpression = PrimaryBracketedExpression.findNext(tokens, startToken);
+        if (primaryExpression != null) return primaryExpression;
+        primaryExpression = PrimaryReservedExpression.findNext(tokens, startToken);
         return primaryExpression;
     }
 
@@ -24,6 +26,8 @@ public abstract class PrimaryExpression extends Expression {
         primaryExpression = PrimaryLiteralExpression.findInRange(tokens, startToken, endToken);
         if (primaryExpression != null) return primaryExpression;
         primaryExpression = PrimaryBracketedExpression.findInRange(tokens, startToken, endToken);
+        if (primaryExpression != null) return primaryExpression;
+        primaryExpression = PrimaryReservedExpression.findInRange(tokens, startToken, endToken);
         return primaryExpression;
     }
 }
