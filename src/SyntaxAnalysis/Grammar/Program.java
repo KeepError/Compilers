@@ -9,40 +9,29 @@ import java.util.List;
 import java.util.Map;
 
 public class Program extends Grammar {
-    List<Statement> statements;
+    Body body;
 
-    public Program(int startToken, int tokensCount, List<Statement> statements) {
+    public Program(int startToken, int tokensCount, Body body) {
         super(startToken, tokensCount);
-        this.statements = statements;
+        this.body = body;
     }
 
     public static Program findNext(List<Token> tokens, int startToken) throws SyntaxError {
-        List<Statement> statements = new ArrayList<>();
-        int currentToken = startToken;
-        while (currentToken < tokens.size()) {
-            Statement statement = Statement.findNext(tokens, currentToken);
-            if (statement == null) {
-                return null;
-            }
-            currentToken += statement.getTokensCount();
-            if (currentToken >= tokens.size()) {
-                return null;
-            }
-            Token token = tokens.get(currentToken);
-            if (token instanceof SeparatorToken && ((SeparatorToken) token).getSeparator().equals(";")) {
-                currentToken++;
-            } else {
-                return null;
-            }
-            statements.add(statement);
-        }
-        return new Program(startToken, currentToken - startToken, statements);
+        Body body = Body.findNext(tokens, startToken);
+        if (body == null) return null;
+        return new Program(startToken, body.getTokensCount(), body);
+    }
+
+    public static Program findInRange(List<Token> tokens, int startToken, int endToken) throws SyntaxError {
+        Program program = findNext(tokens, startToken);
+        if (program == null || program.getTokensCount() != endToken - startToken + 1) return null;
+        return program;
     }
 
     @Override
     public Map<String, Object> getJSONFields() {
         Map<String, Object> fields = super.getJSONFields();
-        fields.put("statements", statements);
+        fields.put("body", body);
         return fields;
     }
 }
