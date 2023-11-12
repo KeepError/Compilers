@@ -7,7 +7,7 @@ import java.util.Set;
 public class SeparatorToken extends Token {
     private final String separator;
 
-    static final Set<String> SEPARATORS = Set.of("..", ";", "{", "}", "(", ")", "[", "]", ",", ".");
+    static final Set<String> SEPARATORS = Set.of("..", "=>", ";", "{", "}", "(", ")", "[", "]", ",", ".");
 
     public SeparatorToken(int line, int startColumn, int endColumn, String separator) {
         super(line, startColumn, endColumn);
