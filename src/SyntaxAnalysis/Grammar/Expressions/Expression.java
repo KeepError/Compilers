@@ -3,6 +3,7 @@ package SyntaxAnalysis.Grammar.Expressions;
 import LexicalAnalysis.Tokens.Token;
 import SyntaxAnalysis.Grammar.Grammar;
 import SyntaxAnalysis.Grammar.SyntaxError;
+import SyntaxAnalysis.Grammar.Expressions.Primary.PrimaryExpression;
 
 import java.util.List;
 
