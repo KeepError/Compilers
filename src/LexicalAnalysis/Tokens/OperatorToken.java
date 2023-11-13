@@ -3,7 +3,7 @@ package LexicalAnalysis.Tokens;
 import java.util.*;
 
 public class OperatorToken extends Token {
-    static final Set<String> OPERATORS = Set.of("+", "-", "/", "*", ":=", ">", "=", "<", ">=", "<=", "and", "or", "xor", "not");
+    static final Set<String> OPERATORS = Set.of("+", "-", "/", "*", ":=", ">", "=", "<", ">=", "<=", "/=", "and", "or", "xor", "not");
 
     private final String operator;
 

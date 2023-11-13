@@ -1,7 +1,8 @@
 package SyntaxAnalysis.Grammar.Expressions;
 
 import LexicalAnalysis.Tokens.Token;
-import SyntaxAnalysis.Grammar.Expressions.Relation.RelationExpression;
+import SyntaxAnalysis.Grammar.Expressions.Expressions.FullExpression;
+import SyntaxAnalysis.Grammar.Expressions.Expressions.MinimalExpression;
 import SyntaxAnalysis.Grammar.Grammar;
 import SyntaxAnalysis.Grammar.SyntaxError;
 
@@ -14,7 +15,15 @@ public abstract class Expression extends Grammar {
 
     public static Expression findNext(List<Token> tokens, int startToken) throws SyntaxError {
         Expression expression;
-        expression = RelationExpression.findNext(tokens, startToken);
-        return expression;
+        expression = MinimalExpression.findNext(tokens, startToken);
+        if (expression != null) return findNext(tokens, startToken, expression);
+        return null;
+    }
+
+    public static Expression findNext(List<Token> tokens, int startToken, Expression term) throws SyntaxError {
+        Expression expression;
+        expression = FullExpression.findNext(tokens, startToken, term);
+        if (expression != null) return findNext(tokens, startToken, expression);
+        return term;
     }
 }
