@@ -9,17 +9,17 @@ import SyntaxAnalysis.Grammar.SyntaxError;
 import java.util.List;
 import java.util.Map;
 
-public class WhileLoop extends Statement {
+public class WhileLoopStatement extends Statement {
     Expression whileExpression;
     Body body;
 
-    public WhileLoop(int startToken, int tokensCount, Expression whileExpression, Body body) {
+    public WhileLoopStatement(int startToken, int tokensCount, Expression whileExpression, Body body) {
         super(startToken, tokensCount);
         this.whileExpression = whileExpression;
         this.body = body;
     }
 
-    public static WhileLoop findNext(List<Token> tokens, int startToken) throws SyntaxError {
+    public static WhileLoopStatement findNext(List<Token> tokens, int startToken) throws SyntaxError {
         int currentToken = startToken;
 
         Token token = tokens.get(currentToken);
@@ -54,7 +54,7 @@ public class WhileLoop extends Statement {
         currentToken++;
         if (currentToken >= tokens.size()) return null;
 
-        return new WhileLoop(startToken, currentToken - startToken, whileExpression, body);
+        return new WhileLoopStatement(startToken, currentToken - startToken, whileExpression, body);
     }
 
     @Override

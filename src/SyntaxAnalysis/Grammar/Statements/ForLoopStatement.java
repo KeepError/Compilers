@@ -11,13 +11,13 @@ import SyntaxAnalysis.Grammar.SyntaxError;
 import java.util.List;
 import java.util.Map;
 
-public class ForLoop extends Statement {
+public class ForLoopStatement extends Statement {
     String identifier;
     Expression fromExpression;
     Expression toExpression;
     Body body;
 
-    public ForLoop(int startToken, int tokensCount, String identifier, Expression fromExpression, Expression toExpression, Body body) {
+    public ForLoopStatement(int startToken, int tokensCount, String identifier, Expression fromExpression, Expression toExpression, Body body) {
         super(startToken, tokensCount);
         this.identifier = identifier;
         this.fromExpression = fromExpression;
@@ -25,7 +25,7 @@ public class ForLoop extends Statement {
         this.body = body;
     }
 
-    public static ForLoop findNext(List<Token> tokens, int startToken) throws SyntaxError {
+    public static ForLoopStatement findNext(List<Token> tokens, int startToken) throws SyntaxError {
         String identifier = null;
         Expression fromExpression;
         Expression toExpression = null;
@@ -90,7 +90,7 @@ public class ForLoop extends Statement {
         currentToken++;
         if (currentToken >= tokens.size()) return null;
 
-        return new ForLoop(startToken, currentToken - startToken, identifier, fromExpression, toExpression, body);
+        return new ForLoopStatement(startToken, currentToken - startToken, identifier, fromExpression, toExpression, body);
     }
 
     @Override
