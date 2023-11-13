@@ -24,14 +24,18 @@ public class PrimaryBracketedExpression extends PrimaryExpression {
         }
         currentToken++;
         if (currentToken >= tokens.size()) return null;
+
         Expression expression = Expression.findNext(tokens, currentToken);
         if (expression == null) return null;
         currentToken += expression.getTokensCount();
+        if (currentToken > tokens.size()) return null;
+
         token = tokens.get(currentToken);
         if (!(token instanceof SeparatorToken && ((SeparatorToken) token).getSeparator().equals(")"))) {
             return null;
         }
         currentToken++;
+
         return new PrimaryBracketedExpression(startToken, currentToken - startToken, expression);
     }
 

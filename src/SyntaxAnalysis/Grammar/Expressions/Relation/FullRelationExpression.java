@@ -26,14 +26,18 @@ public class FullRelationExpression extends RelationExpression {
         if (left == null) return null;
         currentToken += left.getTokensCount();
         if (currentToken >= tokens.size()) return null;
+
         Token token = tokens.get(currentToken);
         if (!(token instanceof OperatorToken)) return null;
         String operator = ((OperatorToken) token).getOperator();
         if (!(operator.equals("<") || operator.equals("<=") || operator.equals(">") || operator.equals(">=") || operator.equals("=") || operator.equals("/="))) return null;
         currentToken++;
+        if (currentToken > tokens.size()) return null;
+
         FactorExpression right = FactorExpression.findNext(tokens, currentToken);
         if (right == null) return null;
         currentToken += right.getTokensCount();
+
         return new FullRelationExpression(startToken, currentToken - startToken, left, operator, right);
     }
 

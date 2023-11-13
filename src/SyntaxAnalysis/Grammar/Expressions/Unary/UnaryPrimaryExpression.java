@@ -27,11 +27,13 @@ public class UnaryPrimaryExpression extends UnaryExpression {
             if (operator.equals("+") || operator.equals("-") || operator.equals("not")) {
                 expressionOperator = ((OperatorToken) token).getOperator();
                 currentToken++;
+                if (currentToken > tokens.size()) return null;
             }
         }
         PrimaryExpression primary = PrimaryExpression.findNext(tokens, currentToken);
         if (primary == null) return null;
         currentToken += primary.getTokensCount();
+
         return new UnaryPrimaryExpression(startToken, currentToken - startToken, expressionOperator, primary);
     }
 

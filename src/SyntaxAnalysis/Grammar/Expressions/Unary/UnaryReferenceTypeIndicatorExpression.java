@@ -24,14 +24,19 @@ public class UnaryReferenceTypeIndicatorExpression extends UnaryExpression {
         Reference reference = Reference.findNext(tokens, currentToken);
         if (reference == null) return null;
         currentToken += reference.getTokensCount();
+        if (currentToken > tokens.size()) return null;
+
         Token token = tokens.get(currentToken);
         if (!(token instanceof KeywordToken && ((KeywordToken) token).getKeyword().equals("is"))) {
             return null;
         }
         currentToken++;
+        if (currentToken > tokens.size()) return null;
+
         TypeIndicator typeIndicator = TypeIndicator.findNext(tokens, currentToken);
         if (typeIndicator == null) return null;
         currentToken += typeIndicator.getTokensCount();
+
         return new UnaryReferenceTypeIndicatorExpression(startToken, currentToken - startToken, reference, typeIndicator);
     }
 

@@ -23,14 +23,18 @@ public class FullFactorExpression extends FactorExpression {
     public static FullFactorExpression findNext(List<Token> tokens, int startToken, FactorExpression left) throws SyntaxError {
         int currentToken = startToken + left.getTokensCount();
         if (currentToken >= tokens.size()) return null;
+
         Token token = tokens.get(currentToken);
         if (!(token instanceof OperatorToken)) return null;
         String operator = ((OperatorToken) token).getOperator();
         if (!(operator.equals("+") || operator.equals("-"))) return null;
         currentToken++;
+        if (currentToken > tokens.size()) return null;
+
         TermExpression right = TermExpression.findNext(tokens, currentToken);
         if (right == null) return null;
         currentToken += right.getTokensCount();
+
         return new FullFactorExpression(startToken, currentToken - startToken, left, operator, right);
     }
 

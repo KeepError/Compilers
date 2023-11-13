@@ -24,14 +24,18 @@ public class FullExpression extends Expression {
     public static FullExpression findNext(List<Token> tokens, int startToken, Expression left) throws SyntaxError {
         int currentToken = startToken + left.getTokensCount();
         if (currentToken >= tokens.size()) return null;
+
         Token token = tokens.get(currentToken);
         if (!(token instanceof OperatorToken)) return null;
         String operator = ((OperatorToken) token).getOperator();
         if (!(operator.equals("and") || operator.equals("or") || operator.equals("xor"))) return null;
         currentToken++;
+        if (currentToken > tokens.size()) return null;
+
         RelationExpression right = RelationExpression.findNext(tokens, currentToken);
         if (right == null) return null;
         currentToken += right.getTokensCount();
+
         return new FullExpression(startToken, currentToken - startToken, left, operator, right);
     }
 
