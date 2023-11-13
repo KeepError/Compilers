@@ -15,6 +15,8 @@ public abstract class Statement extends Grammar {
         Statement statement;
         statement = AssignmentStatement.findNext(tokens, startToken);
         if (statement != null) return statement;
+        statement = IfStatement.findNext(tokens, startToken);
+        if (statement != null) return statement;
         statement = ReturnStatement.findNext(tokens, startToken);
         return statement;
     }
