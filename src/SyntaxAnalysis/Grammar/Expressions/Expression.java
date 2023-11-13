@@ -1,7 +1,7 @@
 package SyntaxAnalysis.Grammar.Expressions;
 
 import LexicalAnalysis.Tokens.Token;
-import SyntaxAnalysis.Grammar.Expressions.Factor.FactorExpression;
+import SyntaxAnalysis.Grammar.Expressions.Relation.RelationExpression;
 import SyntaxAnalysis.Grammar.Grammar;
 import SyntaxAnalysis.Grammar.SyntaxError;
 
@@ -14,7 +14,7 @@ public abstract class Expression extends Grammar {
 
     public static Expression findNext(List<Token> tokens, int startToken) throws SyntaxError {
         Expression expression;
-        expression = FactorExpression.findNext(tokens, startToken);
+        expression = RelationExpression.findNext(tokens, startToken);
         return expression;
     }
 }
