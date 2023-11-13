@@ -33,7 +33,7 @@ public class PrintStatement extends Statement {
         do {
             if (separatorCount == expressions.size()) {
                 Expression expression = Expression.findNext(tokens, currentToken);
-                if (expression == null) return null;
+                if (expression == null) throw new SyntaxError(tokens.get(currentToken), "Expression is expected");
                 expressions.add(expression);
                 currentToken += expression.getTokensCount();
             } else if (separatorCount == expressions.size() - 1) {

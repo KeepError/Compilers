@@ -24,14 +24,20 @@ public class AssignmentStatement extends Statement {
         Reference reference = Reference.findNext(tokens, currentToken);
         if (reference == null) return null;
         currentToken += reference.getTokensCount();
+        if (currentToken > tokens.size()) return null;
+
         Token token = tokens.get(currentToken);
         if (!(token instanceof OperatorToken && ((OperatorToken) token).getOperator().equals(":="))) {
             return null;
         }
         currentToken++;
+        if (currentToken > tokens.size()) return null;
+
         Expression expression = Expression.findNext(tokens, currentToken);
-        if (expression == null) return null;
+        if (expression == null) throw new SyntaxError(tokens.get(currentToken), "Expression is expected");
         currentToken += expression.getTokensCount();
+        if (currentToken > tokens.size()) return null;
+
         return new AssignmentStatement(startToken, currentToken - startToken, reference, expression);
     }
 

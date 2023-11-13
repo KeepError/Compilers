@@ -66,7 +66,7 @@ public class ForLoopStatement extends Statement {
             if (currentToken >= tokens.size()) return null;
 
             toExpression = Expression.findNext(tokens, currentToken);
-            if (toExpression == null) return null;
+            if (toExpression == null) throw new SyntaxError(tokens.get(currentToken), "Expression is expected");
             currentToken += toExpression.getTokensCount();
             if (currentToken >= tokens.size()) return null;
         }

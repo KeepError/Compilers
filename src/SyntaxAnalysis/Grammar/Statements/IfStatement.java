@@ -29,20 +29,24 @@ public class IfStatement extends Statement {
         }
         currentToken++;
         if (currentToken >= tokens.size()) return null;
+
         Expression conditionExpression = Expression.findNext(tokens, currentToken);
-        if (conditionExpression == null) return null;
+        if (conditionExpression == null) throw new SyntaxError(tokens.get(currentToken), "Expression is expected");
         currentToken += conditionExpression.getTokensCount();
         if (currentToken >= tokens.size()) return null;
+
         token = tokens.get(currentToken);
         if (!(token instanceof KeywordToken && ((KeywordToken) token).getKeyword().equals("then"))) {
             return null;
         }
         currentToken++;
         if (currentToken >= tokens.size()) return null;
+
         Body thenBody = Body.findNext(tokens, currentToken);
         if (thenBody == null) return null;
         currentToken += thenBody.getTokensCount();
         if (currentToken >= tokens.size()) return null;
+
         token = tokens.get(currentToken);
         Body elseBody = null;
         if (token instanceof KeywordToken && ((KeywordToken) token).getKeyword().equals("else")) {
@@ -53,12 +57,14 @@ public class IfStatement extends Statement {
             currentToken += elseBody.getTokensCount();
             if (currentToken >= tokens.size()) return null;
         }
+
         token = tokens.get(currentToken);
         if (!(token instanceof KeywordToken && ((KeywordToken) token).getKeyword().equals("end"))) {
             return null;
         }
         currentToken++;
         if (currentToken >= tokens.size()) return null;
+
         return new IfStatement(startToken, currentToken - startToken, conditionExpression, thenBody, elseBody);
     }
 

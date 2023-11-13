@@ -30,7 +30,7 @@ public class DeclarationStatement extends Statement {
         do {
             if (variableDefinitions.size() == separatorCount) {
                 VariableDefinition variableDefinition = VariableDefinition.findNext(tokens, currentToken);
-                if (variableDefinition == null) return null;
+                if (variableDefinition == null) throw new SyntaxError(tokens.get(currentToken), "Variable definition is expected");
                 currentToken += variableDefinition.getTokensCount();
                 if (currentToken > tokens.size()) return null;
                 variableDefinitions.add(variableDefinition);

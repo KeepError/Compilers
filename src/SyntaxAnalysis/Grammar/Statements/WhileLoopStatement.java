@@ -30,7 +30,7 @@ public class WhileLoopStatement extends Statement {
         if (currentToken >= tokens.size()) return null;
 
         Expression whileExpression = Expression.findNext(tokens, currentToken);
-        if (whileExpression == null) return null;
+        if (whileExpression == null) throw new SyntaxError(tokens.get(currentToken), "Expression is expected");
         currentToken += whileExpression.getTokensCount();
         if (currentToken >= tokens.size()) return null;
 

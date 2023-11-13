@@ -16,7 +16,8 @@ public class Program extends Grammar {
     public static Program findNext(List<Token> tokens, int startToken) throws SyntaxError {
         Body body = Body.findNext(tokens, startToken);
         if (body == null) return null;
-        if (body.getTokensCount() != tokens.size()) return null;
+        int endToken = body.getTokensCount();
+        if (endToken < tokens.size()) throw new SyntaxError(tokens.get(endToken), "Statement is expected");
         return new Program(startToken, body.getTokensCount(), body);
     }
 
