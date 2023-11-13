@@ -35,12 +35,6 @@ public class UnaryPrimaryExpression extends UnaryExpression {
         return new UnaryPrimaryExpression(startToken, currentToken - startToken, expressionOperator, primary);
     }
 
-    public static UnaryPrimaryExpression findInRange(List<Token> tokens, int startToken, int endToken)  throws SyntaxError {
-        UnaryPrimaryExpression unaryExpression = findNext(tokens, startToken);
-        if (unaryExpression == null || unaryExpression.getTokensCount() != endToken - startToken + 1) return null;
-        return unaryExpression;
-    }
-
     @Override
     public Map<String, Object> getJSONFields() {
         Map<String, Object> fields = super.getJSONFields();

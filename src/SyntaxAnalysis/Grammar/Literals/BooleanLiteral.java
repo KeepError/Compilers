@@ -28,12 +28,6 @@ public class BooleanLiteral extends Literal {
         return null;
     }
 
-    public static BooleanLiteral findInRange(List<Token> tokens, int startToken, int endToken) throws SyntaxError {
-        BooleanLiteral booleanLiteral = findNext(tokens, startToken);
-        if (booleanLiteral == null || booleanLiteral.getTokensCount() != endToken - startToken + 1) return null;
-        return booleanLiteral;
-    }
-
     @Override
     public Map<String, Object> getJSONFields() {
         Map<String, Object> fields = super.getJSONFields();

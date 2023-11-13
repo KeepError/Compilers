@@ -27,12 +27,6 @@ public class PrimaryReservedExpression extends PrimaryExpression {
         return new PrimaryReservedExpression(startToken, 1, keyword);
     }
 
-    public static PrimaryReservedExpression findInRange(List<Token> tokens, int startToken, int endToken) throws SyntaxError {
-        PrimaryReservedExpression primaryExpression = findNext(tokens, startToken);
-        if (primaryExpression == null || primaryExpression.getTokensCount() != endToken - startToken + 1) return null;
-        return primaryExpression;
-    }
-
     @Override
     public Map<String, Object> getJSONFields() {
         Map<String, Object> fields = super.getJSONFields();

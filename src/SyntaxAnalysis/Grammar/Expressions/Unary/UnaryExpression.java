@@ -18,12 +18,4 @@ public class UnaryExpression extends Expression {
         unaryExpression = UnaryPrimaryExpression.findNext(tokens, startToken);
         return unaryExpression;
     }
-
-    public static UnaryExpression findInRange(List<Token> tokens, int startToken, int endToken) throws SyntaxError {
-        UnaryExpression unaryExpression;
-        unaryExpression = UnaryReferenceExpression.findInRange(tokens, startToken, endToken);
-        if (unaryExpression != null) return unaryExpression;
-        unaryExpression = UnaryPrimaryExpression.findInRange(tokens, startToken, endToken);
-        return unaryExpression;
-    }
 }

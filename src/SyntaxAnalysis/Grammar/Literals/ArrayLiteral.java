@@ -46,12 +46,6 @@ public class ArrayLiteral extends Literal {
         return new ArrayLiteral(startToken, currentToken - startToken + 1, elements);
     }
 
-    public static ArrayLiteral findInRange(List<Token> tokens, int startToken, int endToken) throws SyntaxError {
-        ArrayLiteral arrayLiteral = findNext(tokens, startToken);
-        if (arrayLiteral == null || arrayLiteral.getTokensCount() != endToken - startToken + 1) return null;
-        return arrayLiteral;
-    }
-
     @Override
     public Map<String, Object> getJSONFields() {
         Map<String, Object> fields = super.getJSONFields();

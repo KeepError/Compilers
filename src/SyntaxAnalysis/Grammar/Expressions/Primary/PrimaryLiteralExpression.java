@@ -21,12 +21,6 @@ public class PrimaryLiteralExpression extends PrimaryExpression {
         return new PrimaryLiteralExpression(startToken, literal.getTokensCount(), literal);
     }
 
-    public static PrimaryLiteralExpression findInRange(List<Token> tokens, int startToken, int endToken) throws SyntaxError {
-        PrimaryLiteralExpression primaryExpression = findNext(tokens, startToken);
-        if (primaryExpression == null || primaryExpression.getTokensCount() != endToken - startToken + 1) return null;
-        return primaryExpression;
-    }
-
     @Override
     public Map<String, Object> getJSONFields() {
         Map<String, Object> fields = super.getJSONFields();

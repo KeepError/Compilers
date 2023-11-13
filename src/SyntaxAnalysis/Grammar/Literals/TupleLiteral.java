@@ -42,12 +42,6 @@ public class TupleLiteral extends Literal {
         return new TupleLiteral(startToken, currentToken - startToken + 1, elements);
     }
 
-    public static TupleLiteral findInRange(List<Token> tokens, int startToken, int endToken) throws SyntaxError {
-        TupleLiteral tupleLiteral = findNext(tokens, startToken);
-        if (tupleLiteral == null || tupleLiteral.getTokensCount() != endToken - startToken + 1) return null;
-        return tupleLiteral;
-    }
-
     @Override
     public Map<String, Object> getJSONFields() {
         Map<String, Object> fields = super.getJSONFields();

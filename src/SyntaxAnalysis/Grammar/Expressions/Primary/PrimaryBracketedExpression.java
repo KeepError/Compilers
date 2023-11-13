@@ -35,12 +35,6 @@ public class PrimaryBracketedExpression extends PrimaryExpression {
         return new PrimaryBracketedExpression(startToken, currentToken - startToken, expression);
     }
 
-    public static PrimaryBracketedExpression findInRange(List<Token> tokens, int startToken, int endToken) throws SyntaxError {
-        PrimaryBracketedExpression primaryExpression = findNext(tokens, startToken);
-        if (primaryExpression == null || primaryExpression.getTokensCount() != endToken - startToken + 1) return null;
-        return primaryExpression;
-    }
-
     @Override
     public Map<String, Object> getJSONFields() {
         Map<String, Object> fields = super.getJSONFields();

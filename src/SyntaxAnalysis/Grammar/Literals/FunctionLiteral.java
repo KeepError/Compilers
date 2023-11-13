@@ -58,12 +58,6 @@ public class FunctionLiteral extends Literal {
         return new FunctionLiteral(startToken, currentToken - startToken, parameters, functionBody);
     }
 
-    public static FunctionLiteral findInRange(List<Token> tokens, int startToken, int endToken) throws SyntaxError {
-        FunctionLiteral functionLiteral = findNext(tokens, startToken);
-        if (functionLiteral == null || functionLiteral.getTokensCount() != endToken - startToken + 1) return null;
-        return functionLiteral;
-    }
-
     @Override
     public Map<String, Object> getJSONFields() {
         Map<String, Object> fields = super.getJSONFields();

@@ -21,12 +21,6 @@ public class UnaryReferenceExpression extends UnaryExpression {
         return new UnaryReferenceExpression(startToken, reference.getTokensCount(), reference);
     }
 
-    public static UnaryReferenceExpression findInRange(List<Token> tokens, int startToken, int endToken) throws SyntaxError {
-        UnaryReferenceExpression unaryExpression = findNext(tokens, startToken);
-        if (unaryExpression == null || unaryExpression.getTokensCount() != endToken - startToken + 1) return null;
-        return unaryExpression;
-    }
-
     @Override
     public Map<String, Object> getJSONFields() {
         Map<String, Object> fields = super.getJSONFields();

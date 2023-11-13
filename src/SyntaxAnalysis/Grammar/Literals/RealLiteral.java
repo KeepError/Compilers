@@ -23,12 +23,6 @@ public class RealLiteral extends Literal {
         return null;
     }
 
-    public static RealLiteral findInRange(List<Token> tokens, int startToken, int endToken) throws SyntaxError {
-        RealLiteral realLiteral = findNext(tokens, startToken);
-        if (realLiteral == null || realLiteral.getTokensCount() != endToken - startToken + 1) return null;
-        return realLiteral;
-    }
-
     @Override
     public Map<String, Object> getJSONFields() {
         Map<String, Object> fields = super.getJSONFields();

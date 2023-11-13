@@ -25,12 +25,6 @@ public class EmptyLiteral extends Literal {
         return null;
     }
 
-    public static EmptyLiteral findInRange(List<Token> tokens, int startToken, int endToken) throws SyntaxError {
-        EmptyLiteral emptyLiteral = findNext(tokens, startToken);
-        if (emptyLiteral == null || emptyLiteral.getTokensCount() != endToken - startToken + 1) return null;
-        return emptyLiteral;
-    }
-
     @Override
     public Map<String, Object> getJSONFields() {
         return super.getJSONFields();

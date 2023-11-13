@@ -40,12 +40,6 @@ public class TupleElement extends Grammar {
         return new TupleElement(startToken, currentToken - startToken, identifier, value);
     }
 
-    public static TupleElement findInRange(List<Token> tokens, int startToken, int endToken) throws SyntaxError {
-        TupleElement tupleElement = findNext(tokens, startToken);
-        if (tupleElement == null || tupleElement.getTokensCount() != endToken - startToken + 1) return null;
-        return tupleElement;
-    }
-
     @Override
     public Map<String, Object> getJSONFields() {
         Map<String, Object> fields = super.getJSONFields();

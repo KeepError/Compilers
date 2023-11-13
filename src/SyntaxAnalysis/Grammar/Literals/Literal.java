@@ -30,24 +30,4 @@ public abstract class Literal extends Grammar {
         literal = FunctionLiteral.findNext(tokens, startToken);
         return literal;
     }
-
-    public static Literal findInRange(List<Token> tokens, int startToken, int endToken) throws SyntaxError {
-        Literal literal;
-        literal = IntegerLiteral.findInRange(tokens, startToken, endToken);
-        if (literal != null) return literal;
-        literal = RealLiteral.findInRange(tokens, startToken, endToken);
-        if (literal != null) return literal;
-        literal = StringLiteral.findInRange(tokens, startToken, endToken);
-        if (literal != null) return literal;
-        literal = BooleanLiteral.findInRange(tokens, startToken, endToken);
-        if (literal != null) return literal;
-        literal = EmptyLiteral.findInRange(tokens, startToken, endToken);
-        if (literal != null) return literal;
-        literal = ArrayLiteral.findInRange(tokens, startToken, endToken);
-        if (literal != null) return literal;
-        literal = TupleLiteral.findInRange(tokens, startToken, endToken);
-        if (literal != null) return literal;
-        literal = FunctionLiteral.findInRange(tokens, startToken, endToken);
-        return literal;
-    }
 }

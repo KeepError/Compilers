@@ -1,10 +1,7 @@
 package SyntaxAnalysis.Grammar;
 
-import LexicalAnalysis.Tokens.SeparatorToken;
 import LexicalAnalysis.Tokens.Token;
-import SyntaxAnalysis.Grammar.Statements.Statement;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -19,13 +16,8 @@ public class Program extends Grammar {
     public static Program findNext(List<Token> tokens, int startToken) throws SyntaxError {
         Body body = Body.findNext(tokens, startToken);
         if (body == null) return null;
+        if (body.getTokensCount() != tokens.size()) return null;
         return new Program(startToken, body.getTokensCount(), body);
-    }
-
-    public static Program findInRange(List<Token> tokens, int startToken, int endToken) throws SyntaxError {
-        Program program = findNext(tokens, startToken);
-        if (program == null || program.getTokensCount() != endToken - startToken + 1) return null;
-        return program;
     }
 
     @Override

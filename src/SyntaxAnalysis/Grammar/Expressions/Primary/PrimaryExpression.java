@@ -20,14 +20,4 @@ public abstract class PrimaryExpression extends Expression {
         primaryExpression = PrimaryReservedExpression.findNext(tokens, startToken);
         return primaryExpression;
     }
-
-    public static PrimaryExpression findInRange(List<Token> tokens, int startToken, int endToken) throws SyntaxError {
-        PrimaryExpression primaryExpression;
-        primaryExpression = PrimaryLiteralExpression.findInRange(tokens, startToken, endToken);
-        if (primaryExpression != null) return primaryExpression;
-        primaryExpression = PrimaryBracketedExpression.findInRange(tokens, startToken, endToken);
-        if (primaryExpression != null) return primaryExpression;
-        primaryExpression = PrimaryReservedExpression.findInRange(tokens, startToken, endToken);
-        return primaryExpression;
-    }
 }

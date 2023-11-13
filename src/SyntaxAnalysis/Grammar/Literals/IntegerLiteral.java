@@ -23,12 +23,6 @@ public class IntegerLiteral extends Literal {
         return null;
     }
 
-    public static IntegerLiteral findInRange(List<Token> tokens, int startToken, int endToken) throws SyntaxError {
-        IntegerLiteral integerLiteral = findNext(tokens, startToken);
-        if (integerLiteral == null || integerLiteral.getTokensCount() != endToken - startToken + 1) return null;
-        return integerLiteral;
-    }
-
     @Override
     public Map<String, Object> getJSONFields() {
         Map<String, Object> fields = super.getJSONFields();

@@ -17,10 +17,4 @@ public abstract class Expression extends Grammar {
         expression = UnaryExpression.findNext(tokens, startToken);
         return expression;
     }
-
-    public static Expression findInRange(List<Token> tokens, int startToken, int endToken) throws SyntaxError {
-        Expression expression;
-        expression = UnaryExpression.findInRange(tokens, startToken, endToken);
-        return expression;
-    }
 }
