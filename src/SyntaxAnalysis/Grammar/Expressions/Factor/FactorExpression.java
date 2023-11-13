@@ -12,16 +12,16 @@ public abstract class FactorExpression extends Expression {
     }
 
     public static FactorExpression findNext(List<Token> tokens, int startToken) throws SyntaxError {
-        FactorExpression termExpression;
-        termExpression = MinimalFactorExpression.findNext(tokens, startToken);
-        if (termExpression != null) return findNext(tokens, startToken, termExpression);
+        FactorExpression factorExpression;
+        factorExpression = MinimalFactorExpression.findNext(tokens, startToken);
+        if (factorExpression != null) return findNext(tokens, startToken, factorExpression);
         return null;
     }
 
     public static FactorExpression findNext(List<Token> tokens, int startToken, FactorExpression factor) throws SyntaxError {
-        FactorExpression termExpression;
-        termExpression = FullFactorExpression.findNext(tokens, startToken, factor);
-        if (termExpression != null) return findNext(tokens, startToken, termExpression);
+        FactorExpression factorExpression;
+        factorExpression = FullFactorExpression.findNext(tokens, startToken, factor);
+        if (factorExpression != null) return findNext(tokens, startToken, factorExpression);
         return factor;
     }
 }
