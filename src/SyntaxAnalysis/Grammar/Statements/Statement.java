@@ -13,6 +13,8 @@ public abstract class Statement extends Grammar {
 
     public static Statement findNext(List<Token> tokens, int startToken) throws SyntaxError {
         Statement statement;
+        statement = DeclarationStatement.findNext(tokens, startToken);
+        if (statement != null) return statement;
         statement = AssignmentStatement.findNext(tokens, startToken);
         if (statement != null) return statement;
         statement = IfStatement.findNext(tokens, startToken);
