@@ -13,6 +13,8 @@ public class UnaryExpression extends Expression {
 
     public static UnaryExpression findNext(List<Token> tokens, int startToken) throws SyntaxError {
         UnaryExpression unaryExpression;
+        unaryExpression = UnaryReferenceTypeIndicatorExpression.findNext(tokens, startToken);
+        if (unaryExpression != null) return unaryExpression;
         unaryExpression = UnaryReferenceExpression.findNext(tokens, startToken);
         if (unaryExpression != null) return unaryExpression;
         unaryExpression = UnaryPrimaryExpression.findNext(tokens, startToken);
