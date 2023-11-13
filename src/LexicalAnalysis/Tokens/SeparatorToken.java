@@ -1,8 +1,6 @@
 package LexicalAnalysis.Tokens;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class SeparatorToken extends Token {
     private final String separator;
@@ -21,9 +19,22 @@ public class SeparatorToken extends Token {
     public static SeparatorToken parse(List<String> lines, int line, int startColumn) {
         String lineText = lines.get(line);
 
+        List<Integer> lengths = new ArrayList<>();
         for (String separator : SEPARATORS) {
-            if (lineText.startsWith(separator, startColumn)) {
-                return new SeparatorToken(line, startColumn, separator.length(), separator);
+            if (lengths.contains(separator.length())) {
+                continue;
+            }
+            lengths.add(separator.length());
+        }
+        lengths.sort(Collections.reverseOrder());
+
+        for (int length : lengths) {
+            if (length > lineText.length() - startColumn) {
+                continue;
+            }
+            String substring = lineText.substring(startColumn, startColumn + length);
+            if (SEPARATORS.contains(substring)) {
+                return new SeparatorToken(line, startColumn, substring.length(), substring);
             }
         }
 
