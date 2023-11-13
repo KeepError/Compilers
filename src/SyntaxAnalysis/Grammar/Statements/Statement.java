@@ -19,6 +19,8 @@ public abstract class Statement extends Grammar {
         if (statement != null) return statement;
         statement = WhileLoop.findNext(tokens, startToken);
         if (statement != null) return statement;
+        statement = ForLoop.findNext(tokens, startToken);
+        if (statement != null) return statement;
         statement = ReturnStatement.findNext(tokens, startToken);
         return statement;
     }
