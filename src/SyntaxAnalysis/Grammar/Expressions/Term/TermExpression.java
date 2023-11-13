@@ -1,12 +1,12 @@
 package SyntaxAnalysis.Grammar.Expressions.Term;
 
 import LexicalAnalysis.Tokens.Token;
-import SyntaxAnalysis.Grammar.Expressions.Expression;
+import SyntaxAnalysis.Grammar.Grammar;
 import SyntaxAnalysis.Grammar.SyntaxError;
 
 import java.util.List;
 
-public abstract class TermExpression extends Expression {
+public abstract class TermExpression extends Grammar {
     public TermExpression(int startToken, int tokensCount) {
         super(startToken, tokensCount);
     }

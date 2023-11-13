@@ -1,12 +1,12 @@
 package SyntaxAnalysis.Grammar.Expressions.Relation;
 
 import LexicalAnalysis.Tokens.Token;
-import SyntaxAnalysis.Grammar.Expressions.Expression;
+import SyntaxAnalysis.Grammar.Grammar;
 import SyntaxAnalysis.Grammar.SyntaxError;
 
 import java.util.List;
 
-public abstract class RelationExpression extends Expression {
+public abstract class RelationExpression extends Grammar {
     public RelationExpression(int startToken, int tokensCount) {
         super(startToken, tokensCount);
     }

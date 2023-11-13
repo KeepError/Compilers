@@ -1,12 +1,12 @@
 package SyntaxAnalysis.Grammar.Expressions.Unary;
 
 import LexicalAnalysis.Tokens.Token;
-import SyntaxAnalysis.Grammar.Expressions.Expression;
+import SyntaxAnalysis.Grammar.Grammar;
 import SyntaxAnalysis.Grammar.SyntaxError;
 
 import java.util.List;
 
-public class UnaryExpression extends Expression {
+public class UnaryExpression extends Grammar {
     public UnaryExpression(int startToken, int tokensCount) {
         super(startToken, tokensCount);
     }

@@ -1,12 +1,12 @@
 package SyntaxAnalysis.Grammar.Expressions.Factor;
 
 import LexicalAnalysis.Tokens.Token;
-import SyntaxAnalysis.Grammar.Expressions.Expression;
+import SyntaxAnalysis.Grammar.Grammar;
 import SyntaxAnalysis.Grammar.SyntaxError;
 
 import java.util.List;
 
-public abstract class FactorExpression extends Expression {
+public abstract class FactorExpression extends Grammar {
     public FactorExpression(int startToken, int tokensCount) {
         super(startToken, tokensCount);
     }

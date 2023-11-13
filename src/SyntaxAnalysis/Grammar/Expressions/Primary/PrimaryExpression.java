@@ -1,12 +1,12 @@
 package SyntaxAnalysis.Grammar.Expressions.Primary;
 
 import LexicalAnalysis.Tokens.Token;
-import SyntaxAnalysis.Grammar.Expressions.Expression;
+import SyntaxAnalysis.Grammar.Grammar;
 import SyntaxAnalysis.Grammar.SyntaxError;
 
 import java.util.List;
 
-public abstract class PrimaryExpression extends Expression {
+public abstract class PrimaryExpression extends Grammar {
     public PrimaryExpression(int startToken, int tokensCount) {
         super(startToken, tokensCount);
     }
