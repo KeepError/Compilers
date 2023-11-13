@@ -4,7 +4,6 @@ import LexicalAnalysis.Tokens.SeparatorToken;
 import LexicalAnalysis.Tokens.Token;
 import SyntaxAnalysis.Grammar.Expressions.Expression;
 import SyntaxAnalysis.Grammar.SyntaxError;
-import SyntaxAnalysis.Helpers.Helpers;
 
 import java.util.List;
 import java.util.Map;
@@ -19,36 +18,25 @@ public class ArrayElementReference extends Reference {
         this.arrayElement = arrayElement;
     }
 
-    public static ArrayElementReference findNext(List<Token> tokens, int startToken) throws SyntaxError {
-        int endToken = tokens.size() - 1;
-        do {
-            ArrayElementReference arrayElementReference = findInRange(tokens, startToken, endToken);
-            if (arrayElementReference != null) {
-                return arrayElementReference;
-            }
-            endToken--;
-        } while (endToken >= startToken);
-        return null;
-    }
-
-    public static ArrayElementReference findInRange(List<Token> tokens, int startToken, int endToken) throws SyntaxError {
-        Token token = tokens.get(endToken);
-        if (!(token instanceof SeparatorToken && ((SeparatorToken) token).getSeparator().equals("]"))) {
+    public static ArrayElementReference findNext(List<Token> tokens, int startToken, Reference object) throws SyntaxError {
+        int currentToken = startToken + object.getTokensCount();
+        Token token = tokens.get(currentToken);
+        if (!(token instanceof SeparatorToken && ((SeparatorToken) token).getSeparator().equals("["))) {
             return null;
         }
-        Integer firstBracket = Helpers.searchSkippingBrackets(tokens, endToken - 1, token1 -> token1 instanceof SeparatorToken && ((SeparatorToken) token1).getSeparator().equals("["));
-        if (firstBracket == null || firstBracket < startToken) {
-            return null;
-        }
-        Expression expression = Expression.findInRange(tokens, firstBracket + 1, endToken - 1);
+        currentToken++;
+        if (currentToken >= tokens.size()) return null;
+        Expression expression = Expression.findNext(tokens, currentToken);
         if (expression == null) {
             return null;
         }
-        Reference object = Reference.findInRange(tokens, startToken, firstBracket - 1);
-        if (object == null) {
+        currentToken += expression.getTokensCount();
+        token = tokens.get(currentToken);
+        if (!(token instanceof SeparatorToken && ((SeparatorToken) token).getSeparator().equals("]"))) {
             return null;
         }
-        return new ArrayElementReference(startToken, endToken - startToken + 1, object, expression);
+        currentToken++;
+        return new ArrayElementReference(startToken, currentToken - startToken, object, expression);
     }
 
     @Override

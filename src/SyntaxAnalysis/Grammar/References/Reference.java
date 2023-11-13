@@ -13,25 +13,21 @@ public abstract class Reference extends Grammar {
 
     public static Reference findNext(List<Token> tokens, int startToken) throws SyntaxError {
         Reference reference;
-        reference = ArrayElementReference.findNext(tokens, startToken);
-        if (reference != null) return reference;
-        reference = NamedTupleElementReference.findNext(tokens, startToken);
-        if (reference != null) return reference;
-        reference = FunctionCallReference.findNext(tokens, startToken);
-        if (reference != null) return reference;
         reference = IdentifierReference.findNext(tokens, startToken);
-        return reference;
+        if (reference != null) {
+            return findNext(tokens, startToken, reference);
+        }
+        return null;
     }
 
-    public static Reference findInRange(List<Token> tokens, int startToken, int endToken) throws SyntaxError {
+    public static Reference findNext(List<Token> tokens, int startToken, Reference object) throws SyntaxError {
         Reference reference;
-        reference = ArrayElementReference.findInRange(tokens, startToken, endToken);
-        if (reference != null) return reference;
-        reference = NamedTupleElementReference.findInRange(tokens, startToken, endToken);
-        if (reference != null) return reference;
-        reference = FunctionCallReference.findInRange(tokens, startToken, endToken);
-        if (reference != null) return reference;
-        reference = IdentifierReference.findInRange(tokens, startToken, endToken);
-        return reference;
+        reference = ArrayElementReference.findNext(tokens, startToken, object);
+        if (reference != null) return findNext(tokens, startToken, reference);
+        reference = NamedTupleElementReference.findNext(tokens, startToken, object);
+        if (reference != null) return findNext(tokens, startToken, reference);
+        reference = FunctionCallReference.findNext(tokens, startToken, object);
+        if (reference != null) return findNext(tokens, startToken, reference);
+        return object;
     }
 }

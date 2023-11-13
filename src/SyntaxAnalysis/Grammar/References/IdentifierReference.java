@@ -24,18 +24,6 @@ public class IdentifierReference extends Reference {
         return new IdentifierReference(startToken, 1, identifier);
     }
 
-    public static IdentifierReference findInRange(List<Token> tokens, int startToken, int endToken) throws SyntaxError {
-        if (endToken - startToken != 0) {
-            return null;
-        }
-        Token token = tokens.get(startToken);
-        if (!(token instanceof IdentifierToken)) {
-            return null;
-        }
-        String identifier = ((IdentifierToken) token).getIdentifier();
-        return new IdentifierReference(startToken, 1, identifier);
-    }
-
     @Override
     public Map<String, Object> getJSONFields() {
         Map<String, Object> fields = super.getJSONFields();

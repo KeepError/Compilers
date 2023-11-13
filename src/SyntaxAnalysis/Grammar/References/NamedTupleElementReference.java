@@ -18,32 +18,21 @@ public class NamedTupleElementReference extends Reference {
         this.tupleElementIdentifier = tupleElementIdentifier;
     }
 
-    public static NamedTupleElementReference findNext(List<Token> tokens, int startToken) throws SyntaxError {
-        int endToken = tokens.size() - 1;
-        do {
-            NamedTupleElementReference namedTupleElementReference = findInRange(tokens, startToken, endToken);
-            if (namedTupleElementReference != null) {
-                return namedTupleElementReference;
-            }
-            endToken--;
-        } while (endToken >= startToken);
-        return null;
-    }
-
-    public static NamedTupleElementReference findInRange(List<Token> tokens, int startToken, int endToken) throws SyntaxError {
-        Token token = tokens.get(endToken);
+    public static NamedTupleElementReference findNext(List<Token> tokens, int startToken, Reference object) throws SyntaxError {
+        int currentToken = startToken + object.getTokensCount();
+        Token token = tokens.get(currentToken);
+        if (!(token instanceof SeparatorToken && ((SeparatorToken) token).getSeparator().equals("."))) {
+            return null;
+        }
+        currentToken++;
+        if (currentToken >= tokens.size()) return null;
+        token = tokens.get(currentToken);
         if (!(token instanceof IdentifierToken)) {
             return null;
         }
         String identifier = ((IdentifierToken) token).getIdentifier();
-        if ((endToken - 1) < startToken || !(tokens.get(endToken - 1) instanceof SeparatorToken && ((SeparatorToken) tokens.get(endToken - 1)).getSeparator().equals("."))) {
-            return null;
-        }
-        Reference object = Reference.findInRange(tokens, startToken, endToken - 2);
-        if (object == null) {
-            return null;
-        }
-        return new NamedTupleElementReference(startToken, endToken - startToken + 1, object, identifier);
+        currentToken++;
+        return new NamedTupleElementReference(startToken, currentToken - startToken, object, identifier);
     }
 
     @Override
