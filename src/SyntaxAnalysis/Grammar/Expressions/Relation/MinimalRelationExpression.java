@@ -2,7 +2,6 @@ package SyntaxAnalysis.Grammar.Expressions.Relation;
 
 import LexicalAnalysis.Tokens.Token;
 import SyntaxAnalysis.Grammar.Expressions.Factor.FactorExpression;
-import SyntaxAnalysis.Grammar.Expressions.Term.TermExpression;
 import SyntaxAnalysis.Grammar.SyntaxError;
 
 import java.util.List;
