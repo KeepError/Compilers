@@ -1,8 +1,6 @@
 package SyntaxAnalysis.Grammar.Statements;
 
-import LexicalAnalysis.Tokens.KeywordToken;
 import LexicalAnalysis.Tokens.OperatorToken;
-import LexicalAnalysis.Tokens.SeparatorToken;
 import LexicalAnalysis.Tokens.Token;
 import SyntaxAnalysis.Grammar.Expressions.Expression;
 import SyntaxAnalysis.Grammar.References.Reference;
