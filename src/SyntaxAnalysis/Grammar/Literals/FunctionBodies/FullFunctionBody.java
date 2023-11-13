@@ -26,6 +26,7 @@ public class FullFunctionBody extends FunctionBody {
         Body body = Body.findNext(tokens, currentToken);
         if (body == null) return null;
         currentToken += body.getTokensCount();
+        if (currentToken >= tokens.size()) return null;
         token = tokens.get(currentToken);
         if (!(token instanceof KeywordToken && ((KeywordToken) token).getKeyword().equals("end"))) {
             return null;
