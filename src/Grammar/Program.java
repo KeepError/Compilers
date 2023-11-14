@@ -1,6 +1,5 @@
 package Grammar;
 
-import Symbols.ScopeType;
 import Symbols.SymbolTable;
 import Symbols.SymbolsError;
 import Tokens.Token;
@@ -26,10 +25,12 @@ public class Program extends Grammar {
 
     @Override
     public void analyse(SymbolTable symbolTable) throws SymbolsError {
-        symbolTable.enterScope(ScopeType.PROGRAM);
         body.analyse(symbolTable);
-        symbolTable.exitScope();
-        symbolTable.checkUnclosedScopes();
+    }
+
+    @Override
+    public void optimise(SymbolTable symbolTable) {
+        body.optimise(symbolTable);
     }
 
     @Override

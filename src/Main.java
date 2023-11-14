@@ -32,5 +32,6 @@ public class Main {
         Program program = SyntaxAnalyser.analyse(tokens);
         System.out.println(JSONSerializer.serialize(program));
         SemanticAnalyser.analyse(program);
+        System.out.println(JSONSerializer.serialize(program));
     }
 }

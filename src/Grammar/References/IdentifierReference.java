@@ -28,7 +28,7 @@ public class IdentifierReference extends Reference {
 
     @Override
     public void analyse(SymbolTable symbolTable) throws SymbolsError {
-        symbolTable.referenceSymbol(identifier);
+        symbolTable.getCurrentScope().reference(identifier);
     }
 
     @Override

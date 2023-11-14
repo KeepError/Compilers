@@ -1,50 +1,39 @@
 package Symbols;
 
-import java.util.Stack;
+import Grammar.Grammar;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class SymbolTable {
-    private final Stack<Scope> scopes;
+    private Scope currentScope;
+    private final Map<Grammar, Scope> grammars;
 
     public SymbolTable() {
-        scopes = new Stack<>();
+        currentScope = new Scope(ScopeType.GLOBAL, null);
+        grammars = new HashMap<>();
     }
 
-    public void enterScope(ScopeType type) throws SymbolsError {
-        scopes.push(new Scope(type));
+    public void enterScope(ScopeType type) {
+        currentScope = new Scope(type, currentScope);
     }
 
     public void exitScope() throws SymbolsError {
-        if (scopes.empty()) {
+        if (currentScope.getParent() == null) {
             throw new SymbolsError("Cannot exit scope");
         }
-        scopes.pop();
+        currentScope = currentScope.getParent();
     }
 
-    public void addSymbol(String name) throws SymbolsError {
-        scopes.peek().addSymbol(name);
+    public Scope getCurrentScope() {
+        return currentScope;
     }
 
-    public void referenceSymbol(String name) throws SymbolsError {
-        for (int i = scopes.size() - 1; i >= 0; i--) {
-            if (scopes.get(i).containsSymbol(name)) {
-                return;
-            }
-        }
-        throw new SymbolsError("Symbol " + name + " is not defined");
+    public void assignGrammar(Grammar grammar) {
+        grammars.put(grammar, currentScope);
     }
 
-    public void expectFunctionScope() throws SymbolsError {
-        for (Scope scope: scopes) {
-            if (scope.getType() == ScopeType.FUNCTION) {
-                return;
-            }
-        }
-        throw new SymbolsError("Function scope is expected");
-    }
-
-    public void checkUnclosedScopes() throws SymbolsError {
-        if (!scopes.empty()) {
-            throw new SymbolsError("Not all scopes exited");
-        }
+    public Scope getScope(Grammar grammar) {
+        return grammars.get(grammar);
     }
 }

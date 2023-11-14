@@ -26,12 +26,12 @@ abstract public class Grammar implements JSONSerializable {
 
     public void analyse(SymbolTable symbolTable) throws SymbolsError {}
 
+    public void optimise(SymbolTable symbolTable) {}
+
     @Override
     public Map<String, Object> getJSONFields() {
         Map<String, Object> fields = new LinkedHashMap<>();
         fields.put("_type", this.getClass().getSimpleName());
-        fields.put("startToken", startToken);
-        fields.put("tokensCount", tokensCount);
         return fields;
     }
 }

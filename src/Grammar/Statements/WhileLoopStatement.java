@@ -62,6 +62,7 @@ public class WhileLoopStatement extends Statement {
 
     @Override
     public void analyse(SymbolTable symbolTable) throws SymbolsError {
+        symbolTable.assignGrammar(this);
         whileExpression.analyse(symbolTable);
         symbolTable.enterScope(ScopeType.WHILE);
         body.analyse(symbolTable);

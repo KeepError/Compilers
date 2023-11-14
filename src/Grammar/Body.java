@@ -1,5 +1,6 @@
 package Grammar;
 
+import Grammar.Statements.DeclarationStatement;
 import Symbols.SymbolTable;
 import Symbols.SymbolsError;
 import Tokens.SeparatorToken;
@@ -43,6 +44,17 @@ public class Body extends Grammar {
         for (Statement statement : statements) {
             statement.analyse(symbolTable);
         }
+    }
+
+    @Override
+    public void optimise(SymbolTable symbolTable) {
+        statements.removeIf(statement -> {
+            statement.optimise(symbolTable);
+            if (statement instanceof DeclarationStatement declarationStatement) {
+                return declarationStatement.getVariableDefinitions().isEmpty();
+            }
+            return false;
+        });
     }
 
     @Override

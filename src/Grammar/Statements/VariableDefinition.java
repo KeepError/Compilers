@@ -13,13 +13,17 @@ import java.util.List;
 import java.util.Map;
 
 public class VariableDefinition extends Grammar {
-    String identifier;
-    Expression value;
+    private final String identifier;
+    private final Expression value;
 
     public VariableDefinition(int startToken, int tokensCount, String identifier, Expression value) {
         super(startToken, tokensCount);
         this.identifier = identifier;
         this.value = value;
+    }
+
+    public String getIdentifier() {
+        return identifier;
     }
 
     public static VariableDefinition findNext(List<Token> tokens, int startToken) throws SyntaxError {
@@ -50,7 +54,8 @@ public class VariableDefinition extends Grammar {
 
     @Override
     public void analyse(SymbolTable symbolTable) throws SymbolsError {
-        symbolTable.addSymbol(identifier);
+        symbolTable.assignGrammar(this);
+        symbolTable.getCurrentScope().define(identifier);
         if (value != null) {
             value.analyse(symbolTable);
         }

@@ -106,7 +106,7 @@ public class ForLoopStatement extends Statement {
         }
         symbolTable.enterScope(ScopeType.FOR);
         if (identifier != null) {
-            symbolTable.addSymbol(identifier);
+            symbolTable.getCurrentScope().define(identifier);
         }
         body.analyse(symbolTable);
         symbolTable.exitScope();

@@ -8,5 +8,6 @@ public class SemanticAnalyser {
     public static void analyse(Program program) throws SymbolsError {
         SymbolTable symbolTable = new SymbolTable();
         program.analyse(symbolTable);
+        program.optimise(symbolTable);
     }
 }

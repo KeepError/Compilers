@@ -36,7 +36,7 @@ public class ReturnStatement extends Statement {
 
     @Override
     public void analyse(SymbolTable symbolTable) throws SymbolsError {
-        symbolTable.expectFunctionScope();
+        symbolTable.getCurrentScope().expectFunctionScope();
         if (expression != null) {
             expression.analyse(symbolTable);
         }

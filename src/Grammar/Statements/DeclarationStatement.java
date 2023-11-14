@@ -1,5 +1,6 @@
 package Grammar.Statements;
 
+import Symbols.Scope;
 import Symbols.SymbolTable;
 import Symbols.SymbolsError;
 import Tokens.KeywordToken;
@@ -17,6 +18,10 @@ public class DeclarationStatement extends Statement {
     public DeclarationStatement(int startToken, int tokensCount, List<VariableDefinition> variableDefinitions) {
         super(startToken, tokensCount);
         this.variableDefinitions = variableDefinitions;
+    }
+
+    public List<VariableDefinition> getVariableDefinitions() {
+        return variableDefinitions;
     }
 
     public static DeclarationStatement findNext(List<Token> tokens, int startToken) throws SyntaxError {
@@ -50,6 +55,14 @@ public class DeclarationStatement extends Statement {
             }
         } while (!noSeparator);
         return new DeclarationStatement(startToken, currentToken - startToken, variableDefinitions);
+    }
+
+    @Override
+    public void optimise(SymbolTable symbolTable) {
+        variableDefinitions.removeIf(variableDefinition -> {
+            Scope scope = symbolTable.getScope(variableDefinition);
+            return !scope.isReferenced(variableDefinition.getIdentifier());
+        });
     }
 
     @Override
