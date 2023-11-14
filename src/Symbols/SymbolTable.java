@@ -9,8 +9,8 @@ public class SymbolTable {
         scopes = new Stack<>();
     }
 
-    public void enterScope() throws SymbolsError {
-        scopes.push(new Scope());
+    public void enterScope(ScopeType type) throws SymbolsError {
+        scopes.push(new Scope(type));
     }
 
     public void exitScope() throws SymbolsError {
@@ -31,6 +31,15 @@ public class SymbolTable {
             }
         }
         throw new SymbolsError("Symbol " + name + " is not defined");
+    }
+
+    public void expectFunctionScope() throws SymbolsError {
+        for (Scope scope: scopes) {
+            if (scope.getType() == ScopeType.FUNCTION) {
+                return;
+            }
+        }
+        throw new SymbolsError("Function scope is expected");
     }
 
     public void checkUnclosedScopes() throws SymbolsError {

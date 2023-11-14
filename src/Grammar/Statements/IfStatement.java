@@ -1,5 +1,6 @@
 package Grammar.Statements;
 
+import Symbols.ScopeType;
 import Symbols.SymbolTable;
 import Symbols.SymbolsError;
 import Tokens.KeywordToken;
@@ -73,11 +74,11 @@ public class IfStatement extends Statement {
     @Override
     public void analyse(SymbolTable symbolTable) throws SymbolsError {
         conditionExpression.analyse(symbolTable);
-        symbolTable.enterScope();
+        symbolTable.enterScope(ScopeType.IF);
         thenBody.analyse(symbolTable);
         symbolTable.exitScope();
         if (elseBody != null) {
-            symbolTable.enterScope();
+            symbolTable.enterScope(ScopeType.IF);
             elseBody.analyse(symbolTable);
             symbolTable.exitScope();
         }

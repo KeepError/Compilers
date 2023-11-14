@@ -1,5 +1,6 @@
 package Grammar.Statements;
 
+import Symbols.ScopeType;
 import Symbols.SymbolTable;
 import Symbols.SymbolsError;
 import Tokens.KeywordToken;
@@ -62,7 +63,7 @@ public class WhileLoopStatement extends Statement {
     @Override
     public void analyse(SymbolTable symbolTable) throws SymbolsError {
         whileExpression.analyse(symbolTable);
-        symbolTable.enterScope();
+        symbolTable.enterScope(ScopeType.WHILE);
         body.analyse(symbolTable);
         symbolTable.exitScope();
     }

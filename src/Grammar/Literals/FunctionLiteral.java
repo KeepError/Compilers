@@ -1,5 +1,6 @@
 package Grammar.Literals;
 
+import Symbols.ScopeType;
 import Symbols.SymbolTable;
 import Symbols.SymbolsError;
 import Tokens.IdentifierToken;
@@ -62,7 +63,7 @@ public class FunctionLiteral extends Literal {
 
     @Override
     public void analyse(SymbolTable symbolTable) throws SymbolsError {
-        symbolTable.enterScope();
+        symbolTable.enterScope(ScopeType.FUNCTION);
         for (String parameter : parameters) {
             symbolTable.addSymbol(parameter);
         }

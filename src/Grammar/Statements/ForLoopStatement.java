@@ -1,5 +1,6 @@
 package Grammar.Statements;
 
+import Symbols.ScopeType;
 import Symbols.SymbolTable;
 import Symbols.SymbolsError;
 import Tokens.IdentifierToken;
@@ -103,7 +104,7 @@ public class ForLoopStatement extends Statement {
         if (toExpression != null) {
             toExpression.analyse(symbolTable);
         }
-        symbolTable.enterScope();
+        symbolTable.enterScope(ScopeType.FOR);
         if (identifier != null) {
             symbolTable.addSymbol(identifier);
         }

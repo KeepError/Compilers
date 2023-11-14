@@ -5,9 +5,15 @@ import java.util.Set;
 
 public class Scope {
     private final Set<String> symbols;
+    private final ScopeType type;
 
-    public Scope() {
+    public Scope(ScopeType type) {
         this.symbols = new HashSet<>();
+        this.type = type;
+    }
+
+    public ScopeType getType() {
+        return type;
     }
 
     public void addSymbol(String name) throws SymbolsError {
