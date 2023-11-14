@@ -1,5 +1,7 @@
 package Grammar.References;
 
+import Symbols.SymbolTable;
+import Symbols.SymbolsError;
 import Tokens.IdentifierToken;
 import Tokens.SeparatorToken;
 import Tokens.Token;
@@ -33,6 +35,11 @@ public class NamedTupleElementReference extends Reference {
         String identifier = ((IdentifierToken) token).getIdentifier();
         currentToken++;
         return new NamedTupleElementReference(startToken, currentToken - startToken, object, identifier);
+    }
+
+    @Override
+    public void analyse(SymbolTable symbolTable) throws SymbolsError {
+        object.analyse(symbolTable);
     }
 
     @Override

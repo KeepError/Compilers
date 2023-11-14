@@ -1,5 +1,7 @@
 package Grammar.Expressions.Expressions;
 
+import Symbols.SymbolTable;
+import Symbols.SymbolsError;
 import Tokens.OperatorToken;
 import Tokens.Token;
 import Grammar.Expressions.Relation.RelationExpression;
@@ -37,6 +39,12 @@ public class FullExpression extends Expression {
         currentToken += right.getTokensCount();
 
         return new FullExpression(startToken, currentToken - startToken, left, operator, right);
+    }
+
+    @Override
+    public void analyse(SymbolTable symbolTable) throws SymbolsError {
+        left.analyse(symbolTable);
+        right.analyse(symbolTable);
     }
 
     @Override

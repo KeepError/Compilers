@@ -1,5 +1,7 @@
 package Grammar;
 
+import Symbols.SymbolTable;
+import Symbols.SymbolsError;
 import Tokens.SeparatorToken;
 import Tokens.Token;
 import Grammar.Statements.Statement;
@@ -34,6 +36,13 @@ public class Body extends Grammar {
             }
         } while (currentToken < tokens.size() && statement != null);
         return new Body(startToken, currentToken - startToken, statements);
+    }
+
+    @Override
+    public void analyse(SymbolTable symbolTable) throws SymbolsError {
+        for (Statement statement : statements) {
+            statement.analyse(symbolTable);
+        }
     }
 
     @Override

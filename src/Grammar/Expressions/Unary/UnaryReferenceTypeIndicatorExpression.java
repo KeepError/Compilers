@@ -1,5 +1,7 @@
 package Grammar.Expressions.Unary;
 
+import Symbols.SymbolTable;
+import Symbols.SymbolsError;
 import Tokens.KeywordToken;
 import Tokens.Token;
 import Grammar.References.Reference;
@@ -38,6 +40,12 @@ public class UnaryReferenceTypeIndicatorExpression extends UnaryExpression {
         currentToken += typeIndicator.getTokensCount();
 
         return new UnaryReferenceTypeIndicatorExpression(startToken, currentToken - startToken, reference, typeIndicator);
+    }
+
+    @Override
+    public void analyse(SymbolTable symbolTable) throws SymbolsError {
+        reference.analyse(symbolTable);
+        typeIndicator.analyse(symbolTable);
     }
 
     @Override

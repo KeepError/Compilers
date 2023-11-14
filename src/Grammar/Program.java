@@ -1,5 +1,7 @@
 package Grammar;
 
+import Symbols.SymbolTable;
+import Symbols.SymbolsError;
 import Tokens.Token;
 
 import java.util.List;
@@ -19,6 +21,14 @@ public class Program extends Grammar {
         int endToken = body.getTokensCount();
         if (endToken < tokens.size()) throw new SyntaxError(tokens.get(endToken), "Statement is expected");
         return new Program(startToken, body.getTokensCount(), body);
+    }
+
+    @Override
+    public void analyse(SymbolTable symbolTable) throws SymbolsError {
+        symbolTable.enterScope();
+        body.analyse(symbolTable);
+        symbolTable.exitScope();
+        symbolTable.checkUnclosedScopes();
     }
 
     @Override

@@ -1,5 +1,7 @@
 package Grammar.Statements;
 
+import Symbols.SymbolTable;
+import Symbols.SymbolsError;
 import Tokens.KeywordToken;
 import Tokens.Token;
 import Grammar.Body;
@@ -66,6 +68,19 @@ public class IfStatement extends Statement {
         if (currentToken >= tokens.size()) return null;
 
         return new IfStatement(startToken, currentToken - startToken, conditionExpression, thenBody, elseBody);
+    }
+
+    @Override
+    public void analyse(SymbolTable symbolTable) throws SymbolsError {
+        conditionExpression.analyse(symbolTable);
+        symbolTable.enterScope();
+        thenBody.analyse(symbolTable);
+        symbolTable.exitScope();
+        if (elseBody != null) {
+            symbolTable.enterScope();
+            elseBody.analyse(symbolTable);
+            symbolTable.exitScope();
+        }
     }
 
     @Override

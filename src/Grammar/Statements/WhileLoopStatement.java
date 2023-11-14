@@ -1,5 +1,7 @@
 package Grammar.Statements;
 
+import Symbols.SymbolTable;
+import Symbols.SymbolsError;
 import Tokens.KeywordToken;
 import Tokens.Token;
 import Grammar.Body;
@@ -55,6 +57,14 @@ public class WhileLoopStatement extends Statement {
         if (currentToken >= tokens.size()) return null;
 
         return new WhileLoopStatement(startToken, currentToken - startToken, whileExpression, body);
+    }
+
+    @Override
+    public void analyse(SymbolTable symbolTable) throws SymbolsError {
+        whileExpression.analyse(symbolTable);
+        symbolTable.enterScope();
+        body.analyse(symbolTable);
+        symbolTable.exitScope();
     }
 
     @Override

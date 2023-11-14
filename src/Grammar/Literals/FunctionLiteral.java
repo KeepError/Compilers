@@ -1,5 +1,7 @@
 package Grammar.Literals;
 
+import Symbols.SymbolTable;
+import Symbols.SymbolsError;
 import Tokens.IdentifierToken;
 import Tokens.KeywordToken;
 import Tokens.SeparatorToken;
@@ -56,6 +58,16 @@ public class FunctionLiteral extends Literal {
         if (functionBody == null) return null;
         currentToken += functionBody.getTokensCount();
         return new FunctionLiteral(startToken, currentToken - startToken, parameters, functionBody);
+    }
+
+    @Override
+    public void analyse(SymbolTable symbolTable) throws SymbolsError {
+        symbolTable.enterScope();
+        for (String parameter : parameters) {
+            symbolTable.addSymbol(parameter);
+        }
+        functionBody.analyse(symbolTable);
+        symbolTable.exitScope();
     }
 
     @Override

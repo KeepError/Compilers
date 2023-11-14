@@ -1,5 +1,7 @@
 package Grammar.Statements;
 
+import Symbols.SymbolTable;
+import Symbols.SymbolsError;
 import Tokens.IdentifierToken;
 import Tokens.OperatorToken;
 import Tokens.Token;
@@ -44,6 +46,14 @@ public class VariableDefinition extends Grammar {
         }
 
         return new VariableDefinition(startToken, currentToken - startToken, identifier, value);
+    }
+
+    @Override
+    public void analyse(SymbolTable symbolTable) throws SymbolsError {
+        symbolTable.addSymbol(identifier);
+        if (value != null) {
+            value.analyse(symbolTable);
+        }
     }
 
     @Override

@@ -1,5 +1,7 @@
 package Grammar.Statements;
 
+import Symbols.SymbolTable;
+import Symbols.SymbolsError;
 import Tokens.KeywordToken;
 import Tokens.SeparatorToken;
 import Tokens.Token;
@@ -51,6 +53,13 @@ public class PrintStatement extends Statement {
         } while (!noSeparator);
 
         return new PrintStatement(startToken, currentToken - startToken, expressions);
+    }
+
+    @Override
+    public void analyse(SymbolTable symbolTable) throws SymbolsError {
+        for (Expression expression : expressions) {
+            expression.analyse(symbolTable);
+        }
     }
 
     @Override

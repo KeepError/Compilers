@@ -1,5 +1,7 @@
 package Grammar.References;
 
+import Symbols.SymbolTable;
+import Symbols.SymbolsError;
 import Tokens.IdentifierToken;
 import Tokens.Token;
 import Grammar.SyntaxError;
@@ -22,6 +24,11 @@ public class IdentifierReference extends Reference {
         }
         String identifier = ((IdentifierToken) token).getIdentifier();
         return new IdentifierReference(startToken, 1, identifier);
+    }
+
+    @Override
+    public void analyse(SymbolTable symbolTable) throws SymbolsError {
+        symbolTable.referenceSymbol(identifier);
     }
 
     @Override

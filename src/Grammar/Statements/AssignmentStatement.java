@@ -1,5 +1,7 @@
 package Grammar.Statements;
 
+import Symbols.SymbolTable;
+import Symbols.SymbolsError;
 import Tokens.OperatorToken;
 import Tokens.Token;
 import Grammar.Expressions.Expression;
@@ -39,6 +41,12 @@ public class AssignmentStatement extends Statement {
         if (currentToken > tokens.size()) return null;
 
         return new AssignmentStatement(startToken, currentToken - startToken, reference, expression);
+    }
+
+    @Override
+    public void analyse(SymbolTable symbolTable) throws SymbolsError {
+        reference.analyse(symbolTable);
+        expression.analyse(symbolTable);
     }
 
     @Override

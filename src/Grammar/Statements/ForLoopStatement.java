@@ -1,5 +1,7 @@
 package Grammar.Statements;
 
+import Symbols.SymbolTable;
+import Symbols.SymbolsError;
 import Tokens.IdentifierToken;
 import Tokens.KeywordToken;
 import Tokens.SeparatorToken;
@@ -91,6 +93,22 @@ public class ForLoopStatement extends Statement {
         if (currentToken >= tokens.size()) return null;
 
         return new ForLoopStatement(startToken, currentToken - startToken, identifier, fromExpression, toExpression, body);
+    }
+
+    @Override
+    public void analyse(SymbolTable symbolTable) throws SymbolsError {
+        if (fromExpression != null) {
+            fromExpression.analyse(symbolTable);
+        }
+        if (toExpression != null) {
+            toExpression.analyse(symbolTable);
+        }
+        symbolTable.enterScope();
+        if (identifier != null) {
+            symbolTable.addSymbol(identifier);
+        }
+        body.analyse(symbolTable);
+        symbolTable.exitScope();
     }
 
     @Override

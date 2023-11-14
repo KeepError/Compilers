@@ -1,5 +1,7 @@
 package Grammar.Expressions.Unary;
 
+import Symbols.SymbolTable;
+import Symbols.SymbolsError;
 import Tokens.OperatorToken;
 import Tokens.Token;
 import Grammar.Expressions.Primary.PrimaryExpression;
@@ -35,6 +37,11 @@ public class UnaryPrimaryExpression extends UnaryExpression {
         currentToken += primary.getTokensCount();
 
         return new UnaryPrimaryExpression(startToken, currentToken - startToken, expressionOperator, primary);
+    }
+
+    @Override
+    public void analyse(SymbolTable symbolTable) throws SymbolsError {
+        primary.analyse(symbolTable);
     }
 
     @Override

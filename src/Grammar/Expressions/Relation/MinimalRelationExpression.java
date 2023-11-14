@@ -1,5 +1,7 @@
 package Grammar.Expressions.Relation;
 
+import Symbols.SymbolTable;
+import Symbols.SymbolsError;
 import Tokens.Token;
 import Grammar.Expressions.Factor.FactorExpression;
 import Grammar.SyntaxError;
@@ -19,6 +21,11 @@ public class MinimalRelationExpression extends RelationExpression {
         FactorExpression factorExpression = FactorExpression.findNext(tokens, startToken);
         if (factorExpression == null) return null;
         return new MinimalRelationExpression(startToken, factorExpression.getTokensCount(), factorExpression);
+    }
+
+    @Override
+    public void analyse(SymbolTable symbolTable) throws SymbolsError {
+        factorExpression.analyse(symbolTable);
     }
 
     @Override

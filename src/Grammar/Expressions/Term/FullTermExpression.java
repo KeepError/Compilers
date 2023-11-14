@@ -1,5 +1,7 @@
 package Grammar.Expressions.Term;
 
+import Symbols.SymbolTable;
+import Symbols.SymbolsError;
 import Tokens.OperatorToken;
 import Tokens.Token;
 import Grammar.Expressions.Unary.UnaryExpression;
@@ -36,6 +38,12 @@ public class FullTermExpression extends TermExpression {
         currentToken += right.getTokensCount();
 
         return new FullTermExpression(startToken, currentToken - startToken, left, operator, right);
+    }
+
+    @Override
+    public void analyse(SymbolTable symbolTable) throws SymbolsError {
+        left.analyse(symbolTable);
+        right.analyse(symbolTable);
     }
 
     @Override

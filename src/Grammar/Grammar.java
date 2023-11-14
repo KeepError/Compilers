@@ -1,6 +1,8 @@
 package Grammar;
 
 import JSON.JSONSerializable;
+import Symbols.SymbolTable;
+import Symbols.SymbolsError;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -21,6 +23,8 @@ abstract public class Grammar implements JSONSerializable {
     public int getTokensCount() {
         return tokensCount;
     }
+
+    public void analyse(SymbolTable symbolTable) throws SymbolsError {}
 
     @Override
     public Map<String, Object> getJSONFields() {

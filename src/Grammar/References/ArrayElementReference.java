@@ -1,5 +1,7 @@
 package Grammar.References;
 
+import Symbols.SymbolTable;
+import Symbols.SymbolsError;
 import Tokens.SeparatorToken;
 import Tokens.Token;
 import Grammar.Expressions.Expression;
@@ -37,6 +39,12 @@ public class ArrayElementReference extends Reference {
         }
         currentToken++;
         return new ArrayElementReference(startToken, currentToken - startToken, object, expression);
+    }
+
+    @Override
+    public void analyse(SymbolTable symbolTable) throws SymbolsError {
+        object.analyse(symbolTable);
+        arrayElement.analyse(symbolTable);
     }
 
     @Override

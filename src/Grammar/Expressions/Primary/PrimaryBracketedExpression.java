@@ -1,5 +1,7 @@
 package Grammar.Expressions.Primary;
 
+import Symbols.SymbolTable;
+import Symbols.SymbolsError;
 import Tokens.SeparatorToken;
 import Tokens.Token;
 import Grammar.Expressions.Expression;
@@ -37,6 +39,11 @@ public class PrimaryBracketedExpression extends PrimaryExpression {
         currentToken++;
 
         return new PrimaryBracketedExpression(startToken, currentToken - startToken, expression);
+    }
+
+    @Override
+    public void analyse(SymbolTable symbolTable) throws SymbolsError {
+        expression.analyse(symbolTable);
     }
 
     @Override

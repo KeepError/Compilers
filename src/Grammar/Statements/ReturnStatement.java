@@ -1,5 +1,7 @@
 package Grammar.Statements;
 
+import Symbols.SymbolTable;
+import Symbols.SymbolsError;
 import Tokens.KeywordToken;
 import Tokens.Token;
 import Grammar.Expressions.Expression;
@@ -30,6 +32,13 @@ public class ReturnStatement extends Statement {
             tokensCount += expression.getTokensCount();
         }
         return new ReturnStatement(startToken, tokensCount, expression);
+    }
+
+    @Override
+    public void analyse(SymbolTable symbolTable) throws SymbolsError {
+        if (expression != null) {
+            expression.analyse(symbolTable);
+        }
     }
 
     @Override

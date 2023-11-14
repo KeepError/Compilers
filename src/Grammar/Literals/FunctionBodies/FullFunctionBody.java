@@ -1,5 +1,7 @@
 package Grammar.Literals.FunctionBodies;
 
+import Symbols.SymbolTable;
+import Symbols.SymbolsError;
 import Tokens.KeywordToken;
 import Tokens.Token;
 import Grammar.Body;
@@ -33,6 +35,11 @@ public class FullFunctionBody extends FunctionBody {
         }
         currentToken++;
         return new FullFunctionBody(startToken, currentToken - startToken, body);
+    }
+
+    @Override
+    public void analyse(SymbolTable symbolTable) throws SymbolsError {
+        body.analyse(symbolTable);
     }
 
     @Override

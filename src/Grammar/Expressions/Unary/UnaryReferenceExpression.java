@@ -1,5 +1,7 @@
 package Grammar.Expressions.Unary;
 
+import Symbols.SymbolTable;
+import Symbols.SymbolsError;
 import Tokens.Token;
 import Grammar.References.Reference;
 import Grammar.SyntaxError;
@@ -19,6 +21,11 @@ public class UnaryReferenceExpression extends UnaryExpression {
         Reference reference = Reference.findNext(tokens, startToken);
         if (reference == null) return null;
         return new UnaryReferenceExpression(startToken, reference.getTokensCount(), reference);
+    }
+
+    @Override
+    public void analyse(SymbolTable symbolTable) throws SymbolsError {
+        reference.analyse(symbolTable);
     }
 
     @Override

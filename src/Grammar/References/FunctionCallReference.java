@@ -1,5 +1,7 @@
 package Grammar.References;
 
+import Symbols.SymbolTable;
+import Symbols.SymbolsError;
 import Tokens.SeparatorToken;
 import Tokens.Token;
 import Grammar.Expressions.Expression;
@@ -54,6 +56,14 @@ public class FunctionCallReference extends Reference {
         }
         if (separatorCount != parameters.size()) return null;
         return new FunctionCallReference(startToken, currentToken - startToken, object, parameters);
+    }
+
+    @Override
+    public void analyse(SymbolTable symbolTable) throws SymbolsError {
+        object.analyse(symbolTable);
+        for (Expression parameter : parameters) {
+            parameter.analyse(symbolTable);
+        }
     }
 
     @Override

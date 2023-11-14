@@ -1,5 +1,7 @@
 package Grammar.Literals.FunctionBodies;
 
+import Symbols.SymbolTable;
+import Symbols.SymbolsError;
 import Tokens.SeparatorToken;
 import Tokens.Token;
 import Grammar.Expressions.Expression;
@@ -27,6 +29,11 @@ public class ArrowFunctionBody extends FunctionBody {
         if (expression == null) return null;
         currentToken += expression.getTokensCount();
         return new ArrowFunctionBody(startToken, currentToken - startToken, expression);
+    }
+
+    @Override
+    public void analyse(SymbolTable symbolTable) throws SymbolsError {
+        expression.analyse(symbolTable);
     }
 
     @Override

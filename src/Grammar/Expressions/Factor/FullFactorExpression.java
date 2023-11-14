@@ -1,5 +1,7 @@
 package Grammar.Expressions.Factor;
 
+import Symbols.SymbolTable;
+import Symbols.SymbolsError;
 import Tokens.OperatorToken;
 import Tokens.Token;
 import Grammar.Expressions.Term.TermExpression;
@@ -36,6 +38,12 @@ public class FullFactorExpression extends FactorExpression {
         currentToken += right.getTokensCount();
 
         return new FullFactorExpression(startToken, currentToken - startToken, left, operator, right);
+    }
+
+    @Override
+    public void analyse(SymbolTable symbolTable) throws SymbolsError {
+        left.analyse(symbolTable);
+        right.analyse(symbolTable);
     }
 
     @Override
