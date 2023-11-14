@@ -1,9 +1,9 @@
+import Grammar.SyntaxError;
 import JSON.JSONSerializer;
-import LexicalAnalysis.LexicalAnalyser;
-import LexicalAnalysis.LexicalAnalyserError;
-import LexicalAnalysis.Tokens.Token;
-import SyntaxAnalysis.Grammar.Program;
-import SyntaxAnalysis.SyntaxAnalyserError;
+import Analysis.Lexical.LexicalAnalyser;
+import Analysis.Lexical.LexicalAnalyserError;
+import Tokens.Token;
+import Grammar.Program;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -22,10 +22,10 @@ public class Main {
         return inputLines;
     }
 
-    public static void main(String[] args) throws IOException, LexicalAnalyserError, SyntaxAnalyserError {
+    public static void main(String[] args) throws IOException, LexicalAnalyserError, SyntaxError {
         List<String> inputLines = readFromFile("test.ddd");
         List<Token> tokens = LexicalAnalyser.analyse(inputLines);
-        Program program = SyntaxAnalysis.SyntaxAnalyser.analyse(tokens);
+        Program program = Analysis.Syntax.SyntaxAnalyser.analyse(tokens);
         System.out.println(JSONSerializer.serialize(tokens));
         System.out.println(JSONSerializer.serialize(program));
     }
