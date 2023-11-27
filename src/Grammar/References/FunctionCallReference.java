@@ -3,6 +3,7 @@ package Grammar.References;
 import Grammar.Expressions.Expression;
 import Grammar.SyntaxError;
 import Symbols.*;
+import Symbols.Values.EmptyValue;
 import Symbols.Values.FunctionValue;
 import Symbols.Values.Value;
 import Tokens.SeparatorToken;
@@ -11,6 +12,7 @@ import Tokens.Token;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class FunctionCallReference extends Reference {
     Reference object;
@@ -78,9 +80,10 @@ public class FunctionCallReference extends Reference {
                 scope.define(parameter);
                 scope.getSymbolValue(parameter).setValue(parameterValues.get(i));
             }
-            SymbolValue result = new SymbolValue(functionValue.getFunctionBody().execute(symbolTable));
+            Value resultValue = functionValue.getFunctionBody().execute(symbolTable);
+            SymbolValue symbolValueResult = new SymbolValue(Objects.requireNonNullElseGet(resultValue, EmptyValue::new));
             symbolTable.exitScope();
-            return result;
+            return symbolValueResult;
         }
         throw new SymbolsError("Not a function.");
     }
