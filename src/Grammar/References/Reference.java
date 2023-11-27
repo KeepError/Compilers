@@ -26,6 +26,8 @@ public abstract class Reference extends Grammar {
         if (reference != null) return findNext(tokens, startToken, reference);
         reference = NamedTupleElementReference.findNext(tokens, startToken, object);
         if (reference != null) return findNext(tokens, startToken, reference);
+        reference = UnnamedTupleElementReference.findNext(tokens, startToken, object);
+        if (reference != null) return findNext(tokens, startToken, reference);
         reference = FunctionCallReference.findNext(tokens, startToken, object);
         if (reference != null) return findNext(tokens, startToken, reference);
         return object;
