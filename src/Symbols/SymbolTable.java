@@ -1,43 +1,39 @@
 package Symbols;
 
-import java.util.Stack;
+import Grammar.Grammar;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class SymbolTable {
-    private Stack<Scope> scopes;
+    private Scope currentScope;
+    private final Map<Grammar, Scope> grammars;
 
     public SymbolTable() {
-        scopes = new Stack<>();
+        currentScope = new Scope(ScopeType.GLOBAL, null);
+        grammars = new HashMap<>();
     }
 
-    public void enterScope(ScopeType scopeType) {
-        scopes.push(new Scope(scopeType));
+    public void enterScope(ScopeType type) {
+        currentScope = new Scope(type, currentScope);
     }
 
-    public void exitScope() {
-        scopes.pop();
+    public void exitScope() throws SymbolsError {
+        if (currentScope.getParent() == null) {
+            throw new SymbolsError("Cannot exit scope");
+        }
+        currentScope = currentScope.getParent();
     }
 
     public Scope getCurrentScope() {
-        return scopes.peek();
+        return currentScope;
     }
 
-    public void addSymbol(String name, Symbol symbol) {
-        scopes.peek().addSymbol(name, symbol);
+    public void assignGrammar(Grammar grammar) {
+        grammars.put(grammar, currentScope);
     }
 
-    public LiteralSymbol lookupVariableSymbol(String name) {
-        for (Scope scope : scopes) {
-            LiteralSymbol symbol = scope.findLiteralSymbol(name);
-            if (symbol != null) return symbol;
-        }
-        return null;
-    }
-
-    public FunctionSymbol lookupFunctionSymbol(String name) {
-        for (Scope scope : scopes) {
-            FunctionSymbol symbol = scope.findFunctionSymbol(name);
-            if (symbol != null) return symbol;
-        }
-        return null;
+    public Scope getScope(Grammar grammar) {
+        return grammars.get(grammar);
     }
 }

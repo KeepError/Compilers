@@ -1,7 +1,7 @@
 package Symbols;
 
 public enum ScopeType {
-    PROGRAM,
+    GLOBAL,
     FUNCTION,
     IF,
     FOR,

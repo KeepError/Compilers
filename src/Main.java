@@ -1,6 +1,13 @@
-import Token.Token;
-import Statement.ProgramStatement;
-import Statement.TokenError;
+import Analysis.Lexical.LexicalAnalyser;
+import Analysis.Lexical.LexicalAnalyserError;
+import Analysis.Semantic.SemanticAnalyser;
+import Analysis.Syntax.SyntaxAnalyser;
+import Grammar.Program;
+import Grammar.SyntaxError;
+import Interpretation.Interpreter;
+import JSON.JSONSerializer;
+import Symbols.SymbolsError;
+import Tokens.Token;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -9,33 +16,31 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
+    static boolean DEBUG = false;
 
-    public static List<String> readFromFile(String fileName){
+    public static List<String> readFromFile(String fileName) throws IOException {
         List<String> inputLines = new ArrayList<>();
-        try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                inputLines.add(line);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
+        BufferedReader br = new BufferedReader(new FileReader(fileName));
+        String line;
+        while ((line = br.readLine()) != null) {
+            inputLines.add(line);
         }
         return inputLines;
     }
-    public static void main(String[] args) {
 
-        String fileName = "src/test.ddd";
-        // LexicalAnalyser.tokensToJSON(readFromFile(fileName));
-        List<Token> tokens = LexicalAnalyser.analyze(readFromFile(fileName));
-        // SyntaxAnalyser syntaxAnalyser = new SyntaxAnalyser(tokens);
-        try {
-            // ProgramStatement programStatement = syntaxAnalyser.parse();
-            ProgramStatement programStatement = SyntaxAnalyser.analyse(tokens);
-            // System.out.println(programStatement);
-            SemanticAnalyser.analyse(programStatement);
-        } catch (TokenError e) {
-            System.out.println(e.getMessage());
-            e.printStackTrace();
+    public static void main(String[] args) throws IOException, LexicalAnalyserError, SyntaxError, SymbolsError {
+        List<String> inputLines = readFromFile("test.ddd");
+        List<Token> tokens = LexicalAnalyser.analyse(inputLines);
+        if (DEBUG)
+            System.out.println(JSONSerializer.serialize(tokens));
+        Program program = SyntaxAnalyser.analyse(tokens);
+        if (DEBUG)
+            System.out.println(JSONSerializer.serialize(program));
+        SemanticAnalyser.analyse(program);
+        if (DEBUG) {
+            System.out.println(JSONSerializer.serialize(program));
+            System.out.println("Interpreting...");
         }
+        Interpreter.interpret(program);
     }
 }
