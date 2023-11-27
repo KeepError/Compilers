@@ -47,3 +47,14 @@ print "3 + 4 =", result;
 var multiply := func (a, b) => a * b;
 
 print "3 * 4 =", multiply(3, 4);
+
+
+var fibonacci := func(n) is
+    if (n <= 1) then
+        return n;
+    end;
+    return fibonacci(n - 1) + fibonacci(n - 2);
+end;
+
+var fibonacci_num := 10;
+print "Fibonacci for", fibonacci_num, "is", fibonacci(fibonacci_num);
