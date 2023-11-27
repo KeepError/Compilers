@@ -16,6 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
+    static boolean DEBUG = false;
+
     public static List<String> readFromFile(String fileName) throws IOException {
         List<String> inputLines = new ArrayList<>();
         BufferedReader br = new BufferedReader(new FileReader(fileName));
@@ -29,12 +31,16 @@ public class Main {
     public static void main(String[] args) throws IOException, LexicalAnalyserError, SyntaxError, SymbolsError {
         List<String> inputLines = readFromFile("test.ddd");
         List<Token> tokens = LexicalAnalyser.analyse(inputLines);
-        System.out.println(JSONSerializer.serialize(tokens));
+        if (DEBUG)
+            System.out.println(JSONSerializer.serialize(tokens));
         Program program = SyntaxAnalyser.analyse(tokens);
-        System.out.println(JSONSerializer.serialize(program));
+        if (DEBUG)
+            System.out.println(JSONSerializer.serialize(program));
         SemanticAnalyser.analyse(program);
-        System.out.println(JSONSerializer.serialize(program));
-        System.out.println("Interpreting...");
+        if (DEBUG) {
+            System.out.println(JSONSerializer.serialize(program));
+            System.out.println("Interpreting...");
+        }
         Interpreter.interpret(program);
     }
 }
