@@ -1,14 +1,16 @@
 package Grammar.Literals;
 
+import Grammar.Literals.FunctionBodies.FunctionBody;
+import Grammar.SyntaxError;
 import Symbols.ScopeType;
 import Symbols.SymbolTable;
 import Symbols.SymbolsError;
+import Symbols.Values.FunctionValue;
+import Symbols.Values.Value;
 import Tokens.IdentifierToken;
 import Tokens.KeywordToken;
 import Tokens.SeparatorToken;
 import Tokens.Token;
-import Grammar.Literals.FunctionBodies.FunctionBody;
-import Grammar.SyntaxError;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,6 +61,11 @@ public class FunctionLiteral extends Literal {
         if (functionBody == null) return null;
         currentToken += functionBody.getTokensCount();
         return new FunctionLiteral(startToken, currentToken - startToken, parameters, functionBody);
+    }
+
+    @Override
+    public Value getValue(SymbolTable symbolTable) {
+        return new FunctionValue(parameters, functionBody);
     }
 
     @Override

@@ -1,13 +1,15 @@
 package Grammar.Statements;
 
-import Symbols.ScopeType;
-import Symbols.SymbolTable;
-import Symbols.SymbolsError;
-import Tokens.KeywordToken;
-import Tokens.Token;
 import Grammar.Body;
 import Grammar.Expressions.Expression;
 import Grammar.SyntaxError;
+import Symbols.ScopeType;
+import Symbols.SymbolTable;
+import Symbols.SymbolsError;
+import Symbols.Values.BooleanValue;
+import Symbols.Values.Value;
+import Tokens.KeywordToken;
+import Tokens.Token;
 
 import java.util.List;
 import java.util.Map;
@@ -67,6 +69,26 @@ public class WhileLoopStatement extends Statement {
         symbolTable.enterScope(ScopeType.WHILE);
         body.analyse(symbolTable);
         symbolTable.exitScope();
+    }
+
+    public boolean isConditionTrue(SymbolTable symbolTable) throws SymbolsError {
+        Value value = whileExpression.evaluate(symbolTable);
+        if (value instanceof BooleanValue booleanValue) {
+            return booleanValue.getValue();
+        } else {
+            throw new SymbolsError("Boolean condition is expected.");
+        }
+    }
+
+    @Override
+    public Value execute(SymbolTable symbolTable) throws SymbolsError {
+        while (isConditionTrue(symbolTable)) {
+            symbolTable.enterScope(ScopeType.WHILE);
+            Value returnValue = body.execute(symbolTable);
+            symbolTable.exitScope();
+            if (returnValue != null) return returnValue;
+        }
+        return null;
     }
 
     @Override

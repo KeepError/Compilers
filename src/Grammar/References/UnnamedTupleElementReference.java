@@ -2,7 +2,9 @@ package Grammar.References;
 
 import Grammar.SyntaxError;
 import Symbols.SymbolTable;
+import Symbols.SymbolValue;
 import Symbols.SymbolsError;
+import Symbols.Values.TupleValue;
 import Tokens.IntegerToken;
 import Tokens.SeparatorToken;
 import Tokens.Token;
@@ -35,6 +37,20 @@ public class UnnamedTupleElementReference extends Reference {
         Integer number = ((IntegerToken) token).getIntegerValue();
         currentToken++;
         return new UnnamedTupleElementReference(startToken, currentToken - startToken, object, number);
+    }
+
+    @Override
+    public SymbolValue getSymbolValue(SymbolTable symbolTable) throws SymbolsError {
+        SymbolValue objectValue = object.getSymbolValue(symbolTable);
+        if (objectValue.getValue() instanceof TupleValue tupleValue) {
+            Integer number = tupleElementNumber;
+            Map<Integer, SymbolValue> unnamedElements = tupleValue.getUnnamedElements();
+            if (!unnamedElements.containsKey(number)) {
+                throw new SymbolsError("Tuple does not contain element with number " + number + ".");
+            }
+            return unnamedElements.get(number);
+        }
+        throw new SymbolsError("Not a tuple.");
     }
 
     @Override

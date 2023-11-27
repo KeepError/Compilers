@@ -1,12 +1,13 @@
 package Grammar.Statements;
 
+import Grammar.Expressions.Expression;
+import Grammar.SyntaxError;
 import Symbols.SymbolTable;
 import Symbols.SymbolsError;
+import Symbols.Values.Value;
 import Tokens.KeywordToken;
 import Tokens.SeparatorToken;
 import Tokens.Token;
-import Grammar.Expressions.Expression;
-import Grammar.SyntaxError;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,6 +61,17 @@ public class PrintStatement extends Statement {
         for (Expression expression : expressions) {
             expression.analyse(symbolTable);
         }
+    }
+
+    @Override
+    public Value execute(SymbolTable symbolTable) throws SymbolsError {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (Expression expression : expressions) {
+            stringBuilder.append(expression.evaluate(symbolTable));
+            stringBuilder.append(" ");
+        }
+        System.out.println(stringBuilder);
+        return null;
     }
 
     @Override

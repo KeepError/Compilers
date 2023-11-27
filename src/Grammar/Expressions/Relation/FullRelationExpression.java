@@ -1,11 +1,12 @@
 package Grammar.Expressions.Relation;
 
-import Symbols.SymbolTable;
-import Symbols.SymbolsError;
-import Tokens.OperatorToken;
-import Tokens.Token;
 import Grammar.Expressions.Factor.FactorExpression;
 import Grammar.SyntaxError;
+import Symbols.SymbolTable;
+import Symbols.SymbolsError;
+import Symbols.Values.Value;
+import Tokens.OperatorToken;
+import Tokens.Token;
 
 import java.util.List;
 import java.util.Map;
@@ -32,7 +33,8 @@ public class FullRelationExpression extends RelationExpression {
         Token token = tokens.get(currentToken);
         if (!(token instanceof OperatorToken)) return null;
         String operator = ((OperatorToken) token).getOperator();
-        if (!(operator.equals("<") || operator.equals("<=") || operator.equals(">") || operator.equals(">=") || operator.equals("=") || operator.equals("/="))) return null;
+        if (!(operator.equals("<") || operator.equals("<=") || operator.equals(">") || operator.equals(">=") || operator.equals("=") || operator.equals("/=")))
+            return null;
         currentToken++;
         if (currentToken > tokens.size()) return null;
 
@@ -41,6 +43,21 @@ public class FullRelationExpression extends RelationExpression {
         currentToken += right.getTokensCount();
 
         return new FullRelationExpression(startToken, currentToken - startToken, left, operator, right);
+    }
+
+    @Override
+    public Value evaluate(SymbolTable symbolTable) throws SymbolsError {
+        Value leftValue = left.evaluate(symbolTable);
+        Value rightValue = right.evaluate(symbolTable);
+        return switch (operator) {
+            case "<" -> leftValue.less(rightValue);
+            case "<=" -> leftValue.lessEqual(rightValue);
+            case ">" -> leftValue.greater(rightValue);
+            case ">=" -> leftValue.greaterEqual(rightValue);
+            case "=" -> leftValue.equal(rightValue);
+            case "/=" -> leftValue.notEqual(rightValue);
+            default -> throw new SymbolsError("Invalid operator: " + operator);
+        };
     }
 
     @Override

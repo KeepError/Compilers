@@ -2,6 +2,7 @@ package Grammar.Expressions.Term;
 
 import Symbols.SymbolTable;
 import Symbols.SymbolsError;
+import Symbols.Values.Value;
 import Tokens.Token;
 import Grammar.Expressions.Unary.UnaryExpression;
 import Grammar.SyntaxError;
@@ -21,6 +22,11 @@ public class MinimalTermExpression extends TermExpression {
         UnaryExpression unaryExpression = UnaryExpression.findNext(tokens, startToken);
         if (unaryExpression == null) return null;
         return new MinimalTermExpression(startToken, unaryExpression.getTokensCount(), unaryExpression);
+    }
+
+    @Override
+    public Value evaluate(SymbolTable symbolTable) throws SymbolsError {
+        return unaryExpression.evaluate(symbolTable);
     }
 
     @Override

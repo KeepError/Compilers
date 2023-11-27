@@ -33,6 +33,10 @@ public class Program extends Grammar {
         body.optimise(symbolTable);
     }
 
+    public void execute(SymbolTable symbolTable) throws SymbolsError {
+        body.execute(symbolTable);
+    }
+
     @Override
     public Map<String, Object> getJSONFields() {
         Map<String, Object> fields = super.getJSONFields();

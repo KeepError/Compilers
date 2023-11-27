@@ -1,13 +1,14 @@
 package Grammar.Statements;
 
+import Grammar.Expressions.Expression;
+import Grammar.Grammar;
+import Grammar.SyntaxError;
+import Symbols.Scope;
 import Symbols.SymbolTable;
 import Symbols.SymbolsError;
 import Tokens.IdentifierToken;
 import Tokens.OperatorToken;
 import Tokens.Token;
-import Grammar.Expressions.Expression;
-import Grammar.Grammar;
-import Grammar.SyntaxError;
 
 import java.util.List;
 import java.util.Map;
@@ -59,6 +60,13 @@ public class VariableDefinition extends Grammar {
         if (value != null) {
             value.analyse(symbolTable);
         }
+    }
+
+    public void define(SymbolTable symbolTable) throws SymbolsError {
+        Scope scope = symbolTable.getCurrentScope();
+        scope.define(identifier);
+        if (value == null) return;
+        scope.getSymbolValue(identifier).setValue(value.evaluate(symbolTable));
     }
 
     @Override

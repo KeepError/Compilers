@@ -1,5 +1,7 @@
 package Grammar.Literals;
 
+import Symbols.SymbolTable;
+import Symbols.SymbolsError;
 import Tokens.IdentifierToken;
 import Tokens.OperatorToken;
 import Tokens.Token;
@@ -20,6 +22,14 @@ public class TupleElement extends Grammar {
         this.value = value;
     }
 
+    public String getIdentifier() {
+        return identifier;
+    }
+
+    public Expression getValue() {
+        return value;
+    }
+
     public static String findIdentifier(List<Token> tokens, int startToken) {
         Token idToken = tokens.get(startToken);
         if (!(idToken instanceof IdentifierToken)) return null;
@@ -38,6 +48,10 @@ public class TupleElement extends Grammar {
         if (value == null) return null;
         currentToken += value.getTokensCount();
         return new TupleElement(startToken, currentToken - startToken, identifier, value);
+    }
+
+    public void analyse(SymbolTable symbolTable) throws SymbolsError {
+        value.analyse(symbolTable);
     }
 
     @Override

@@ -1,12 +1,13 @@
 package Grammar.Statements;
 
+import Grammar.SyntaxError;
 import Symbols.Scope;
 import Symbols.SymbolTable;
 import Symbols.SymbolsError;
+import Symbols.Values.Value;
 import Tokens.KeywordToken;
 import Tokens.SeparatorToken;
 import Tokens.Token;
-import Grammar.SyntaxError;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +38,8 @@ public class DeclarationStatement extends Statement {
         do {
             if (variableDefinitions.size() == separatorCount) {
                 VariableDefinition variableDefinition = VariableDefinition.findNext(tokens, currentToken);
-                if (variableDefinition == null) throw new SyntaxError(tokens.get(currentToken), "Variable definition is expected");
+                if (variableDefinition == null)
+                    throw new SyntaxError(tokens.get(currentToken), "Variable definition is expected");
                 currentToken += variableDefinition.getTokensCount();
                 if (currentToken > tokens.size()) return null;
                 variableDefinitions.add(variableDefinition);
@@ -70,6 +72,14 @@ public class DeclarationStatement extends Statement {
         for (VariableDefinition variableDefinition : variableDefinitions) {
             variableDefinition.analyse(symbolTable);
         }
+    }
+
+    @Override
+    public Value execute(SymbolTable symbolTable) throws SymbolsError {
+        for (VariableDefinition variableDefinition : variableDefinitions) {
+            variableDefinition.define(symbolTable);
+        }
+        return null;
     }
 
     @Override

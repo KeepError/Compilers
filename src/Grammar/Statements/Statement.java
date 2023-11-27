@@ -1,8 +1,11 @@
 package Grammar.Statements;
 
-import Tokens.Token;
 import Grammar.Grammar;
 import Grammar.SyntaxError;
+import Symbols.SymbolTable;
+import Symbols.SymbolsError;
+import Symbols.Values.Value;
+import Tokens.Token;
 
 import java.util.List;
 
@@ -28,4 +31,6 @@ public abstract class Statement extends Grammar {
         statement = PrintStatement.findNext(tokens, startToken);
         return statement;
     }
+
+    public abstract Value execute(SymbolTable symbolTable) throws SymbolsError;
 }

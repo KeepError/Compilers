@@ -1,5 +1,8 @@
 package Grammar.Expressions.Factor;
 
+import Symbols.SymbolTable;
+import Symbols.SymbolsError;
+import Symbols.Values.Value;
 import Tokens.Token;
 import Grammar.Grammar;
 import Grammar.SyntaxError;
@@ -24,4 +27,6 @@ public abstract class FactorExpression extends Grammar {
         if (factorExpression != null) return findNext(tokens, startToken, factorExpression);
         return factor;
     }
+
+    public abstract Value evaluate(SymbolTable symbolTable) throws SymbolsError;
 }

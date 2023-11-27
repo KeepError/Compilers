@@ -1,10 +1,13 @@
 package Grammar.Expressions;
 
-import Tokens.Token;
 import Grammar.Expressions.Expressions.FullExpression;
 import Grammar.Expressions.Expressions.MinimalExpression;
 import Grammar.Grammar;
 import Grammar.SyntaxError;
+import Symbols.SymbolTable;
+import Symbols.SymbolsError;
+import Symbols.Values.Value;
+import Tokens.Token;
 
 import java.util.List;
 
@@ -26,4 +29,6 @@ public abstract class Expression extends Grammar {
         if (expression != null) return findNext(tokens, startToken, expression);
         return term;
     }
+
+    public abstract Value evaluate(SymbolTable symbolTable) throws SymbolsError;
 }

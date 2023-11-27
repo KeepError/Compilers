@@ -1,8 +1,11 @@
 package Grammar.Literals.FunctionBodies;
 
-import Tokens.Token;
 import Grammar.Grammar;
 import Grammar.SyntaxError;
+import Symbols.SymbolTable;
+import Symbols.SymbolsError;
+import Symbols.Values.Value;
+import Tokens.Token;
 
 import java.util.List;
 
@@ -18,4 +21,6 @@ public abstract class FunctionBody extends Grammar {
         functionBody = FullFunctionBody.findNext(tokens, startToken);
         return functionBody;
     }
+
+    public abstract Value execute(SymbolTable symbolTable) throws SymbolsError;
 }

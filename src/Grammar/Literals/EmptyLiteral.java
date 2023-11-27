@@ -1,5 +1,8 @@
 package Grammar.Literals;
 
+import Symbols.SymbolTable;
+import Symbols.Values.EmptyValue;
+import Symbols.Values.Value;
 import Tokens.KeywordToken;
 import Tokens.Token;
 import Grammar.SyntaxError;
@@ -23,6 +26,11 @@ public class EmptyLiteral extends Literal {
             }
         }
         return null;
+    }
+
+    @Override
+    public Value getValue(SymbolTable symbolTable) {
+        return new EmptyValue();
     }
 
     @Override

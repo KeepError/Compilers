@@ -1,12 +1,13 @@
 package Grammar.Expressions.Expressions;
 
+import Grammar.Expressions.Expression;
+import Grammar.Expressions.Relation.RelationExpression;
+import Grammar.SyntaxError;
 import Symbols.SymbolTable;
 import Symbols.SymbolsError;
+import Symbols.Values.Value;
 import Tokens.OperatorToken;
 import Tokens.Token;
-import Grammar.Expressions.Relation.RelationExpression;
-import Grammar.Expressions.Expression;
-import Grammar.SyntaxError;
 
 import java.util.List;
 import java.util.Map;
@@ -45,6 +46,17 @@ public class FullExpression extends Expression {
     public void analyse(SymbolTable symbolTable) throws SymbolsError {
         left.analyse(symbolTable);
         right.analyse(symbolTable);
+    }
+
+    public Value evaluate(SymbolTable symbolTable) throws SymbolsError {
+        Value leftValue = left.evaluate(symbolTable);
+        Value rightValue = right.evaluate(symbolTable);
+        return switch (operator) {
+            case "and" -> leftValue.logicalAnd(rightValue);
+            case "or" -> leftValue.logicalOr(rightValue);
+            case "xor" -> leftValue.logicalXor(rightValue);
+            default -> throw new SymbolsError("Invalid operator: " + operator);
+        };
     }
 
     @Override

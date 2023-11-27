@@ -1,12 +1,15 @@
 package Grammar.Expressions.Unary;
 
+import Symbols.SymbolTable;
+import Symbols.SymbolsError;
+import Symbols.Values.Value;
 import Tokens.Token;
 import Grammar.Grammar;
 import Grammar.SyntaxError;
 
 import java.util.List;
 
-public class UnaryExpression extends Grammar {
+public abstract class UnaryExpression extends Grammar {
     public UnaryExpression(int startToken, int tokensCount) {
         super(startToken, tokensCount);
     }
@@ -20,4 +23,6 @@ public class UnaryExpression extends Grammar {
         unaryExpression = UnaryPrimaryExpression.findNext(tokens, startToken);
         return unaryExpression;
     }
+
+    public abstract Value evaluate(SymbolTable symbolTable) throws SymbolsError;
 }

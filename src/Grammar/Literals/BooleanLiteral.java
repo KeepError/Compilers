@@ -1,5 +1,8 @@
 package Grammar.Literals;
 
+import Symbols.SymbolTable;
+import Symbols.Values.BooleanValue;
+import Symbols.Values.Value;
 import Tokens.KeywordToken;
 import Tokens.Token;
 import Grammar.SyntaxError;
@@ -26,6 +29,11 @@ public class BooleanLiteral extends Literal {
             }
         }
         return null;
+    }
+
+    @Override
+    public Value getValue(SymbolTable symbolTable) {
+        return new BooleanValue(booleanValue);
     }
 
     @Override

@@ -1,12 +1,13 @@
 package Grammar.Expressions.Unary;
 
-import Symbols.SymbolTable;
-import Symbols.SymbolsError;
-import Tokens.KeywordToken;
-import Tokens.Token;
 import Grammar.References.Reference;
 import Grammar.SyntaxError;
-import Grammar.TypeIndicators.TypeIndicator;
+import Grammar.TypeIndicators.*;
+import Symbols.SymbolTable;
+import Symbols.SymbolsError;
+import Symbols.Values.*;
+import Tokens.KeywordToken;
+import Tokens.Token;
 
 import java.util.List;
 import java.util.Map;
@@ -40,6 +41,22 @@ public class UnaryReferenceTypeIndicatorExpression extends UnaryExpression {
         currentToken += typeIndicator.getTokensCount();
 
         return new UnaryReferenceTypeIndicatorExpression(startToken, currentToken - startToken, reference, typeIndicator);
+    }
+
+    @Override
+    public Value evaluate(SymbolTable symbolTable) throws SymbolsError {
+        Value value = reference.getSymbolValue(symbolTable).getValue();
+        return switch (typeIndicator) {
+            case IntegerTypeIndicator ignoredIntegerTypeIndicator -> new BooleanValue(value instanceof IntegerValue);
+            case RealTypeIndicator ignoredRealTypeIndicator -> new BooleanValue(value instanceof RealValue);
+            case StringTypeIndicator ignoredStringTypeIndicator -> new BooleanValue(value instanceof StringValue);
+            case BooleanTypeIndicator ignoredBooleanTypeIndicator -> new BooleanValue(value instanceof BooleanValue);
+            case ArrayTypeIndicator ignoredArrayTypeIndicator -> new BooleanValue(value instanceof ArrayValue);
+            case TupleTypeIndicator ignoredTupleTypeIndicator -> new BooleanValue(value instanceof TupleValue);
+            case FunctionTypeIndicator ignoredFunctionTypeIndicator -> new BooleanValue(value instanceof FunctionValue);
+            case EmptyTypeIndicator ignoredEmptyTypeIndicator -> new BooleanValue(value instanceof EmptyValue);
+            case null, default -> new BooleanValue(false);
+        };
     }
 
     @Override

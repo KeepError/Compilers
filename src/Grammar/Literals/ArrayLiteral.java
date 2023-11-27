@@ -1,9 +1,14 @@
 package Grammar.Literals;
 
-import Tokens.SeparatorToken;
-import Tokens.Token;
 import Grammar.Expressions.Expression;
 import Grammar.SyntaxError;
+import Symbols.SymbolTable;
+import Symbols.SymbolValue;
+import Symbols.SymbolsError;
+import Symbols.Values.ArrayValue;
+import Symbols.Values.Value;
+import Tokens.SeparatorToken;
+import Tokens.Token;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +49,23 @@ public class ArrayLiteral extends Literal {
             currentToken--;
         }
         return new ArrayLiteral(startToken, currentToken - startToken + 1, elements);
+    }
+
+    @Override
+    public void analyse(SymbolTable symbolTable) throws SymbolsError {
+        for (Expression element : this.elements) {
+            element.analyse(symbolTable);
+        }
+    }
+
+    @Override
+    public Value getValue(SymbolTable symbolTable) throws SymbolsError {
+        List<SymbolValue> elements = new ArrayList<>();
+        for (Expression element : this.elements) {
+            Value value = element.evaluate(symbolTable);
+            elements.add(new SymbolValue(value));
+        }
+        return new ArrayValue(elements);
     }
 
     @Override

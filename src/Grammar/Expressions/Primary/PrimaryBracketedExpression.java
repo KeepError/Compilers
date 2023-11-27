@@ -1,11 +1,12 @@
 package Grammar.Expressions.Primary;
 
-import Symbols.SymbolTable;
-import Symbols.SymbolsError;
-import Tokens.SeparatorToken;
-import Tokens.Token;
 import Grammar.Expressions.Expression;
 import Grammar.SyntaxError;
+import Symbols.SymbolTable;
+import Symbols.SymbolsError;
+import Symbols.Values.Value;
+import Tokens.SeparatorToken;
+import Tokens.Token;
 
 import java.util.List;
 import java.util.Map;
@@ -39,6 +40,11 @@ public class PrimaryBracketedExpression extends PrimaryExpression {
         currentToken++;
 
         return new PrimaryBracketedExpression(startToken, currentToken - startToken, expression);
+    }
+
+    @Override
+    public Value evaluate(SymbolTable symbolTable) throws SymbolsError {
+        return expression.evaluate(symbolTable);
     }
 
     @Override

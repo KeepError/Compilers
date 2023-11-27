@@ -1,11 +1,12 @@
 package Grammar.References;
 
-import Symbols.SymbolTable;
-import Symbols.SymbolsError;
-import Tokens.SeparatorToken;
-import Tokens.Token;
 import Grammar.Expressions.Expression;
 import Grammar.SyntaxError;
+import Symbols.*;
+import Symbols.Values.FunctionValue;
+import Symbols.Values.Value;
+import Tokens.SeparatorToken;
+import Tokens.Token;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,6 +57,32 @@ public class FunctionCallReference extends Reference {
         }
         if (separatorCount != parameters.size()) return null;
         return new FunctionCallReference(startToken, currentToken - startToken, object, parameters);
+    }
+
+    @Override
+    public SymbolValue getSymbolValue(SymbolTable symbolTable) throws SymbolsError {
+        SymbolValue objectValue = object.getSymbolValue(symbolTable);
+        List<Value> parameterValues = new ArrayList<>();
+        for (Expression parameter : parameters) {
+            parameterValues.add(parameter.evaluate(symbolTable));
+        }
+        if (objectValue.getValue() instanceof FunctionValue functionValue) {
+            if (functionValue.getParameters().size() != parameterValues.size()) {
+                throw new SymbolsError("Wrong number of parameters.");
+            }
+
+            symbolTable.enterScope(ScopeType.FUNCTION);
+            Scope scope = symbolTable.getCurrentScope();
+            for (int i = 0; i < functionValue.getParameters().size(); i++) {
+                String parameter = functionValue.getParameters().get(i);
+                scope.define(parameter);
+                scope.getSymbolValue(parameter).setValue(parameterValues.get(i));
+            }
+            SymbolValue result = new SymbolValue(functionValue.getFunctionBody().execute(symbolTable));
+            symbolTable.exitScope();
+            return result;
+        }
+        throw new SymbolsError("Not a function.");
     }
 
     @Override

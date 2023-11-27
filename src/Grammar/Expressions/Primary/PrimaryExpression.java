@@ -1,5 +1,8 @@
 package Grammar.Expressions.Primary;
 
+import Symbols.SymbolTable;
+import Symbols.SymbolsError;
+import Symbols.Values.Value;
 import Tokens.Token;
 import Grammar.Grammar;
 import Grammar.SyntaxError;
@@ -20,4 +23,6 @@ public abstract class PrimaryExpression extends Grammar {
         primaryExpression = PrimaryReservedExpression.findNext(tokens, startToken);
         return primaryExpression;
     }
+
+    public abstract Value evaluate(SymbolTable symbolTable) throws SymbolsError;
 }

@@ -1,12 +1,13 @@
-import Analysis.Semantic.SemanticAnalyser;
-import Analysis.Syntax.SyntaxAnalyser;
-import Grammar.SyntaxError;
-import JSON.JSONSerializer;
 import Analysis.Lexical.LexicalAnalyser;
 import Analysis.Lexical.LexicalAnalyserError;
+import Analysis.Semantic.SemanticAnalyser;
+import Analysis.Syntax.SyntaxAnalyser;
+import Grammar.Program;
+import Grammar.SyntaxError;
+import Interpretation.Interpreter;
+import JSON.JSONSerializer;
 import Symbols.SymbolsError;
 import Tokens.Token;
-import Grammar.Program;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -33,5 +34,7 @@ public class Main {
         System.out.println(JSONSerializer.serialize(program));
         SemanticAnalyser.analyse(program);
         System.out.println(JSONSerializer.serialize(program));
+        System.out.println("Interpreting...");
+        Interpreter.interpret(program);
     }
 }

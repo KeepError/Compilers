@@ -1,11 +1,12 @@
 package Grammar.Expressions.Unary;
 
-import Symbols.SymbolTable;
-import Symbols.SymbolsError;
-import Tokens.OperatorToken;
-import Tokens.Token;
 import Grammar.Expressions.Primary.PrimaryExpression;
 import Grammar.SyntaxError;
+import Symbols.SymbolTable;
+import Symbols.SymbolsError;
+import Symbols.Values.Value;
+import Tokens.OperatorToken;
+import Tokens.Token;
 
 import java.util.List;
 import java.util.Map;
@@ -37,6 +38,18 @@ public class UnaryPrimaryExpression extends UnaryExpression {
         currentToken += primary.getTokensCount();
 
         return new UnaryPrimaryExpression(startToken, currentToken - startToken, expressionOperator, primary);
+    }
+
+    @Override
+    public Value evaluate(SymbolTable symbolTable) throws SymbolsError {
+        Value primaryValue = primary.evaluate(symbolTable);
+        if (operator == null) return primaryValue;
+        return switch (operator) {
+            case "+" -> primaryValue.unaryAdd();
+            case "-" -> primaryValue.unarySubtract();
+            case "not" -> primaryValue.logicalNot();
+            default -> throw new SymbolsError("Unknown operator: " + operator);
+        };
     }
 
     @Override

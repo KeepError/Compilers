@@ -1,5 +1,8 @@
 package Grammar.Literals;
 
+import Symbols.SymbolTable;
+import Symbols.SymbolsError;
+import Symbols.Values.Value;
 import Tokens.Token;
 import Grammar.Grammar;
 import Grammar.SyntaxError;
@@ -30,4 +33,6 @@ public abstract class Literal extends Grammar {
         literal = FunctionLiteral.findNext(tokens, startToken);
         return literal;
     }
+
+    public abstract Value getValue(SymbolTable symbolTable) throws SymbolsError;
 }

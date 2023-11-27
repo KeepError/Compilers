@@ -1,8 +1,11 @@
 package Grammar.Literals;
 
+import Grammar.SyntaxError;
+import Symbols.SymbolTable;
+import Symbols.Values.StringValue;
+import Symbols.Values.Value;
 import Tokens.StringToken;
 import Tokens.Token;
-import Grammar.SyntaxError;
 
 import java.util.List;
 import java.util.Map;
@@ -21,6 +24,11 @@ public class StringLiteral extends Literal {
             return new StringLiteral(startToken, 1, ((StringToken) token).getStringValue());
         }
         return null;
+    }
+
+    @Override
+    public Value getValue(SymbolTable symbolTable) {
+        return new StringValue(stringValue);
     }
 
     @Override

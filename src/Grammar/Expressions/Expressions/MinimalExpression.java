@@ -2,6 +2,7 @@ package Grammar.Expressions.Expressions;
 
 import Symbols.SymbolTable;
 import Symbols.SymbolsError;
+import Symbols.Values.Value;
 import Tokens.Token;
 import Grammar.Expressions.Relation.RelationExpression;
 import Grammar.Expressions.Expression;
@@ -27,6 +28,11 @@ public class MinimalExpression extends Expression {
     @Override
     public void analyse(SymbolTable symbolTable) throws SymbolsError {
         relationExpression.analyse(symbolTable);
+    }
+
+    @Override
+    public Value evaluate(SymbolTable symbolTable) throws SymbolsError {
+        return relationExpression.evaluate(symbolTable);
     }
 
     @Override

@@ -1,8 +1,11 @@
 package Grammar.References;
 
-import Tokens.Token;
 import Grammar.Grammar;
 import Grammar.SyntaxError;
+import Symbols.SymbolTable;
+import Symbols.SymbolValue;
+import Symbols.SymbolsError;
+import Tokens.Token;
 
 import java.util.List;
 
@@ -32,4 +35,6 @@ public abstract class Reference extends Grammar {
         if (reference != null) return findNext(tokens, startToken, reference);
         return object;
     }
+
+    public abstract SymbolValue getSymbolValue(SymbolTable symbolTable) throws SymbolsError;
 }

@@ -1,5 +1,8 @@
 package Grammar.Literals;
 
+import Symbols.SymbolTable;
+import Symbols.Values.IntegerValue;
+import Symbols.Values.Value;
 import Tokens.IntegerToken;
 import Tokens.Token;
 import Grammar.SyntaxError;
@@ -21,6 +24,11 @@ public class IntegerLiteral extends Literal {
             return new IntegerLiteral(startToken, 1, ((IntegerToken) token).getIntegerValue());
         }
         return null;
+    }
+
+    @Override
+    public Value getValue(SymbolTable symbolTable) {
+        return new IntegerValue(integerValue);
     }
 
     @Override

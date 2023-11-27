@@ -1,5 +1,8 @@
 package Grammar.Expressions.Term;
 
+import Symbols.SymbolTable;
+import Symbols.SymbolsError;
+import Symbols.Values.Value;
 import Tokens.Token;
 import Grammar.Grammar;
 import Grammar.SyntaxError;
@@ -24,4 +27,6 @@ public abstract class TermExpression extends Grammar {
         if (termExpression != null) return findNext(tokens, startToken, termExpression);
         return term;
     }
+
+    public abstract Value evaluate(SymbolTable symbolTable) throws SymbolsError;
 }

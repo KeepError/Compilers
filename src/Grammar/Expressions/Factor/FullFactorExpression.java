@@ -1,11 +1,12 @@
 package Grammar.Expressions.Factor;
 
-import Symbols.SymbolTable;
-import Symbols.SymbolsError;
-import Tokens.OperatorToken;
-import Tokens.Token;
 import Grammar.Expressions.Term.TermExpression;
 import Grammar.SyntaxError;
+import Symbols.SymbolTable;
+import Symbols.SymbolsError;
+import Symbols.Values.Value;
+import Tokens.OperatorToken;
+import Tokens.Token;
 
 import java.util.List;
 import java.util.Map;
@@ -38,6 +39,17 @@ public class FullFactorExpression extends FactorExpression {
         currentToken += right.getTokensCount();
 
         return new FullFactorExpression(startToken, currentToken - startToken, left, operator, right);
+    }
+
+    @Override
+    public Value evaluate(SymbolTable symbolTable) throws SymbolsError {
+        Value leftValue = left.evaluate(symbolTable);
+        Value rightValue = right.evaluate(symbolTable);
+        return switch (operator) {
+            case "+" -> leftValue.add(rightValue);
+            case "-" -> leftValue.subtract(rightValue);
+            default -> throw new SymbolsError("Unknown operator: " + operator);
+        };
     }
 
     @Override

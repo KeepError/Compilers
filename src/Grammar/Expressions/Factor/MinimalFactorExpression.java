@@ -2,6 +2,7 @@ package Grammar.Expressions.Factor;
 
 import Symbols.SymbolTable;
 import Symbols.SymbolsError;
+import Symbols.Values.Value;
 import Tokens.Token;
 import Grammar.Expressions.Term.TermExpression;
 import Grammar.SyntaxError;
@@ -21,6 +22,11 @@ public class MinimalFactorExpression extends FactorExpression {
         TermExpression termExpression = TermExpression.findNext(tokens, startToken);
         if (termExpression == null) return null;
         return new MinimalFactorExpression(startToken, termExpression.getTokensCount(), termExpression);
+    }
+
+    @Override
+    public Value evaluate(SymbolTable symbolTable) throws SymbolsError {
+        return termExpression.evaluate(symbolTable);
     }
 
     @Override

@@ -1,12 +1,14 @@
 package Grammar.Statements;
 
-import Symbols.SymbolTable;
-import Symbols.SymbolsError;
-import Tokens.OperatorToken;
-import Tokens.Token;
 import Grammar.Expressions.Expression;
 import Grammar.References.Reference;
 import Grammar.SyntaxError;
+import Symbols.SymbolTable;
+import Symbols.SymbolValue;
+import Symbols.SymbolsError;
+import Symbols.Values.Value;
+import Tokens.OperatorToken;
+import Tokens.Token;
 
 import java.util.List;
 import java.util.Map;
@@ -47,6 +49,13 @@ public class AssignmentStatement extends Statement {
     public void analyse(SymbolTable symbolTable) throws SymbolsError {
         reference.analyse(symbolTable);
         expression.analyse(symbolTable);
+    }
+
+    @Override
+    public Value execute(SymbolTable symbolTable) throws SymbolsError {
+        SymbolValue symbolValue = reference.getSymbolValue(symbolTable);
+        symbolValue.setValue(expression.evaluate(symbolTable));
+        return null;
     }
 
     @Override

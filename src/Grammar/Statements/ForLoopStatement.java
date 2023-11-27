@@ -1,15 +1,17 @@
 package Grammar.Statements;
 
+import Grammar.Body;
+import Grammar.Expressions.Expression;
+import Grammar.SyntaxError;
 import Symbols.ScopeType;
 import Symbols.SymbolTable;
 import Symbols.SymbolsError;
+import Symbols.Values.IntegerValue;
+import Symbols.Values.Value;
 import Tokens.IdentifierToken;
 import Tokens.KeywordToken;
 import Tokens.SeparatorToken;
 import Tokens.Token;
-import Grammar.Body;
-import Grammar.Expressions.Expression;
-import Grammar.SyntaxError;
 
 import java.util.List;
 import java.util.Map;
@@ -31,7 +33,7 @@ public class ForLoopStatement extends Statement {
     public static ForLoopStatement findNext(List<Token> tokens, int startToken) throws SyntaxError {
         String identifier = null;
         Expression fromExpression;
-        Expression toExpression = null;
+        Expression toExpression;
         Body body;
 
         int currentToken = startToken;
@@ -72,6 +74,8 @@ public class ForLoopStatement extends Statement {
             if (toExpression == null) throw new SyntaxError(tokens.get(currentToken), "Expression is expected");
             currentToken += toExpression.getTokensCount();
             if (currentToken >= tokens.size()) return null;
+        } else {
+            throw new SyntaxError(tokens.get(currentToken), "Expression is expected");
         }
 
         token = tokens.get(currentToken);
@@ -110,6 +114,31 @@ public class ForLoopStatement extends Statement {
         }
         body.analyse(symbolTable);
         symbolTable.exitScope();
+    }
+
+    @Override
+    public Value execute(SymbolTable symbolTable) throws SymbolsError {
+        Value fromValue = fromExpression.evaluate(symbolTable);
+        Value toValue = toExpression.evaluate(symbolTable);
+        int start;
+        int end;
+        if (fromValue instanceof IntegerValue fromIntegerValue && toValue instanceof IntegerValue toIntegerValue) {
+            start = fromIntegerValue.getValue();
+            end = toIntegerValue.getValue();
+        } else {
+            throw new SymbolsError("Integer range is expected.");
+        }
+        for (int val = start; val <= end; val++) {
+            symbolTable.enterScope(ScopeType.FOR);
+            if (identifier != null) {
+                symbolTable.getCurrentScope().define(identifier);
+                symbolTable.getCurrentScope().getSymbolValue(identifier).setValue(new IntegerValue(val));
+            }
+            Value returnValue = body.execute(symbolTable);
+            symbolTable.exitScope();
+            if (returnValue != null) return returnValue;
+        }
+        return null;
     }
 
     @Override

@@ -1,5 +1,8 @@
 package Grammar.Expressions.Relation;
 
+import Symbols.SymbolTable;
+import Symbols.SymbolsError;
+import Symbols.Values.Value;
 import Tokens.Token;
 import Grammar.Grammar;
 import Grammar.SyntaxError;
@@ -18,4 +21,6 @@ public abstract class RelationExpression extends Grammar {
         relationExpression = MinimalRelationExpression.findNext(tokens, startToken);
         return relationExpression;
     }
+
+    public abstract Value evaluate(SymbolTable symbolTable) throws SymbolsError;
 }

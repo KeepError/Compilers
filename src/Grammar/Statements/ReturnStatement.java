@@ -1,11 +1,12 @@
 package Grammar.Statements;
 
-import Symbols.SymbolTable;
-import Symbols.SymbolsError;
-import Tokens.KeywordToken;
-import Tokens.Token;
 import Grammar.Expressions.Expression;
 import Grammar.SyntaxError;
+import Symbols.SymbolTable;
+import Symbols.SymbolsError;
+import Symbols.Values.Value;
+import Tokens.KeywordToken;
+import Tokens.Token;
 
 import java.util.List;
 import java.util.Map;
@@ -40,6 +41,14 @@ public class ReturnStatement extends Statement {
         if (expression != null) {
             expression.analyse(symbolTable);
         }
+    }
+
+    @Override
+    public Value execute(SymbolTable symbolTable) throws SymbolsError {
+        if (expression != null) {
+            return expression.evaluate(symbolTable);
+        }
+        return null;
     }
 
     @Override

@@ -1,10 +1,16 @@
 package Grammar.Literals;
 
+import Symbols.SymbolTable;
+import Symbols.SymbolValue;
+import Symbols.SymbolsError;
+import Symbols.Values.TupleValue;
+import Symbols.Values.Value;
 import Tokens.SeparatorToken;
 import Tokens.Token;
 import Grammar.SyntaxError;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -40,6 +46,32 @@ public class TupleLiteral extends Literal {
         } while (!separator.equals("}"));
         currentToken--;
         return new TupleLiteral(startToken, currentToken - startToken + 1, elements);
+    }
+
+    @Override
+    public void analyse(SymbolTable symbolTable) throws SymbolsError {
+        for (TupleElement element : this.elements) {
+            element.analyse(symbolTable);
+        }
+    }
+
+    @Override
+    public Value getValue(SymbolTable symbolTable) throws SymbolsError {
+        Map<String, SymbolValue> namedElements = new HashMap<>();
+        Map<Integer, SymbolValue> unnamedElements = new HashMap<>();
+        Integer index = 0;
+        for (TupleElement tupleElement : elements) {
+            index++;
+            String identifier = tupleElement.getIdentifier();
+            Value value = tupleElement.getValue().evaluate(symbolTable);
+            SymbolValue symbolValue = new SymbolValue(value);
+            if (identifier == null) {
+                unnamedElements.put(index, symbolValue);
+            } else {
+                namedElements.put(identifier, symbolValue);
+            }
+        }
+        return new TupleValue(namedElements, unnamedElements);
     }
 
     @Override

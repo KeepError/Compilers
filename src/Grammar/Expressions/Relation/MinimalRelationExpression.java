@@ -2,6 +2,7 @@ package Grammar.Expressions.Relation;
 
 import Symbols.SymbolTable;
 import Symbols.SymbolsError;
+import Symbols.Values.Value;
 import Tokens.Token;
 import Grammar.Expressions.Factor.FactorExpression;
 import Grammar.SyntaxError;
@@ -21,6 +22,11 @@ public class MinimalRelationExpression extends RelationExpression {
         FactorExpression factorExpression = FactorExpression.findNext(tokens, startToken);
         if (factorExpression == null) return null;
         return new MinimalRelationExpression(startToken, factorExpression.getTokensCount(), factorExpression);
+    }
+
+    @Override
+    public Value evaluate(SymbolTable symbolTable) throws SymbolsError {
+        return factorExpression.evaluate(symbolTable);
     }
 
     @Override

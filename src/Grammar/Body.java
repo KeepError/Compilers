@@ -1,11 +1,12 @@
 package Grammar;
 
 import Grammar.Statements.DeclarationStatement;
+import Grammar.Statements.Statement;
 import Symbols.SymbolTable;
 import Symbols.SymbolsError;
+import Symbols.Values.Value;
 import Tokens.SeparatorToken;
 import Tokens.Token;
-import Grammar.Statements.Statement;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,5 +63,15 @@ public class Body extends Grammar {
         Map<String, Object> fields = super.getJSONFields();
         fields.put("statements", statements);
         return fields;
+    }
+
+    public Value execute(SymbolTable symbolTable) throws SymbolsError {
+        for (Statement statement : statements) {
+            Value value = statement.execute(symbolTable);
+            if (value != null) {
+                return value;
+            }
+        }
+        return null;
     }
 }

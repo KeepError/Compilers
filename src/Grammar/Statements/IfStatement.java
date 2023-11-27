@@ -1,13 +1,15 @@
 package Grammar.Statements;
 
-import Symbols.ScopeType;
-import Symbols.SymbolTable;
-import Symbols.SymbolsError;
-import Tokens.KeywordToken;
-import Tokens.Token;
 import Grammar.Body;
 import Grammar.Expressions.Expression;
 import Grammar.SyntaxError;
+import Symbols.ScopeType;
+import Symbols.SymbolTable;
+import Symbols.SymbolsError;
+import Symbols.Values.BooleanValue;
+import Symbols.Values.Value;
+import Tokens.KeywordToken;
+import Tokens.Token;
 
 import java.util.List;
 import java.util.Map;
@@ -82,6 +84,26 @@ public class IfStatement extends Statement {
             elseBody.analyse(symbolTable);
             symbolTable.exitScope();
         }
+    }
+
+    @Override
+    public Value execute(SymbolTable symbolTable) throws SymbolsError {
+        Value conditionValue = conditionExpression.evaluate(symbolTable);
+        boolean isTrue;
+        if (conditionValue instanceof BooleanValue booleanValue) {
+            isTrue = booleanValue.getValue();
+        } else {
+            throw new SymbolsError("Boolean condition is expected.");
+        }
+        symbolTable.enterScope(ScopeType.IF);
+        Value returnValue = null;
+        if (isTrue) {
+            returnValue = thenBody.execute(symbolTable);
+        } else if (elseBody != null) {
+            returnValue = elseBody.execute(symbolTable);
+        }
+        symbolTable.exitScope();
+        return returnValue;
     }
 
     @Override

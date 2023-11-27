@@ -1,10 +1,11 @@
 package Grammar.Expressions.Unary;
 
-import Symbols.SymbolTable;
-import Symbols.SymbolsError;
-import Tokens.Token;
 import Grammar.References.Reference;
 import Grammar.SyntaxError;
+import Symbols.SymbolTable;
+import Symbols.SymbolsError;
+import Symbols.Values.Value;
+import Tokens.Token;
 
 import java.util.List;
 import java.util.Map;
@@ -21,6 +22,11 @@ public class UnaryReferenceExpression extends UnaryExpression {
         Reference reference = Reference.findNext(tokens, startToken);
         if (reference == null) return null;
         return new UnaryReferenceExpression(startToken, reference.getTokensCount(), reference);
+    }
+
+    @Override
+    public Value evaluate(SymbolTable symbolTable) throws SymbolsError {
+        return reference.getSymbolValue(symbolTable).getValue();
     }
 
     @Override

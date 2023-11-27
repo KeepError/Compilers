@@ -2,6 +2,7 @@ package Grammar.Expressions.Primary;
 
 import Symbols.SymbolTable;
 import Symbols.SymbolsError;
+import Symbols.Values.Value;
 import Tokens.Token;
 import Grammar.Literals.Literal;
 import Grammar.SyntaxError;
@@ -21,6 +22,11 @@ public class PrimaryLiteralExpression extends PrimaryExpression {
         Literal literal = Literal.findNext(tokens, startToken);
         if (literal == null) return null;
         return new PrimaryLiteralExpression(startToken, literal.getTokensCount(), literal);
+    }
+
+    @Override
+    public Value evaluate(SymbolTable symbolTable) throws SymbolsError {
+        return literal.getValue(symbolTable);
     }
 
     @Override

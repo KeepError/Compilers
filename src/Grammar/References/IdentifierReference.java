@@ -1,10 +1,11 @@
 package Grammar.References;
 
+import Grammar.SyntaxError;
 import Symbols.SymbolTable;
+import Symbols.SymbolValue;
 import Symbols.SymbolsError;
 import Tokens.IdentifierToken;
 import Tokens.Token;
-import Grammar.SyntaxError;
 
 import java.util.List;
 import java.util.Map;
@@ -27,7 +28,13 @@ public class IdentifierReference extends Reference {
     }
 
     @Override
+    public SymbolValue getSymbolValue(SymbolTable symbolTable) throws SymbolsError {
+        return symbolTable.getCurrentScope().getSymbolValue(identifier);
+    }
+
+    @Override
     public void analyse(SymbolTable symbolTable) throws SymbolsError {
+        symbolTable.assignGrammar(this);
         symbolTable.getCurrentScope().reference(identifier);
     }
 
