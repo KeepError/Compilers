@@ -14,6 +14,11 @@ public class StringValue extends Value {
     }
 
     @Override
+    public String getPrintableValue() {
+        return value;
+    }
+
+    @Override
     public Value add(Value other) throws SymbolsError {
         if (other instanceof StringValue stringValue)
             return new StringValue(this.value + stringValue.getValue());

@@ -3,6 +3,10 @@ package Symbols.Values;
 import Symbols.SymbolsError;
 
 public abstract class Value {
+    public String getPrintableValue() {
+        return toString();
+    }
+
     public Value add(Value other) throws SymbolsError {
         throw new SymbolsError("Invalid types for addition: " + this.getClass().getSimpleName() + " and " + other.getClass().getSimpleName());
     }

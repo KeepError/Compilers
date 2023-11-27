@@ -67,7 +67,7 @@ public class PrintStatement extends Statement {
     public Value execute(SymbolTable symbolTable) throws SymbolsError {
         StringBuilder stringBuilder = new StringBuilder();
         for (Expression expression : expressions) {
-            stringBuilder.append(expression.evaluate(symbolTable));
+            stringBuilder.append(expression.evaluate(symbolTable).getPrintableValue());
             stringBuilder.append(" ");
         }
         System.out.println(stringBuilder);
