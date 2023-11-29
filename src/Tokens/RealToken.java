@@ -24,9 +24,11 @@ public class RealToken extends Token {
         }
         if (lineText.charAt(endColumn) != '.') return null;
         endColumn++;
+        int columnAfterDot = endColumn;
         while (Character.isDigit(lineText.charAt(endColumn))) {
             endColumn++;
         }
+        if (endColumn == columnAfterDot) return null;
         if (Character.isLetter(lineText.charAt(endColumn + 1)) || lineText.charAt(endColumn + 1) == '.') return null;
         return new RealToken(line, startColumn, (endColumn - startColumn), Float.parseFloat(lineText.substring(startColumn, endColumn)));
     }
