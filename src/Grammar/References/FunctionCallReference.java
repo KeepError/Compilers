@@ -73,6 +73,9 @@ public class FunctionCallReference extends Reference {
                 throw new SymbolsError("Wrong number of parameters.");
             }
 
+            Scope currentScope = symbolTable.getCurrentScope();
+            symbolTable.setScope(symbolTable.getScope(functionValue.getFunctionBody()));
+
             symbolTable.enterScope(ScopeType.FUNCTION);
             Scope scope = symbolTable.getCurrentScope();
             for (int i = 0; i < functionValue.getParameters().size(); i++) {
@@ -83,6 +86,8 @@ public class FunctionCallReference extends Reference {
             Value resultValue = functionValue.getFunctionBody().execute(symbolTable);
             SymbolValue symbolValueResult = new SymbolValue(Objects.requireNonNullElseGet(resultValue, EmptyValue::new));
             symbolTable.exitScope();
+
+            symbolTable.setScope(currentScope);
             return symbolValueResult;
         }
         throw new SymbolsError("Not a function.");

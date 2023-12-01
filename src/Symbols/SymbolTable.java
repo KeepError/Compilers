@@ -10,7 +10,7 @@ public class SymbolTable {
     private final Map<Grammar, Scope> grammars;
 
     public SymbolTable() {
-        currentScope = new Scope(ScopeType.GLOBAL, null);
+        setGlobalScope();
         grammars = new HashMap<>();
     }
 
@@ -27,6 +27,14 @@ public class SymbolTable {
 
     public Scope getCurrentScope() {
         return currentScope;
+    }
+
+    public void setGlobalScope() {
+        setScope(new Scope(ScopeType.GLOBAL, null));
+    }
+
+    public void setScope(Scope scope) {
+        currentScope = scope;
     }
 
     public void assignGrammar(Grammar grammar) {

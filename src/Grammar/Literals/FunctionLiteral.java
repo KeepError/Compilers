@@ -64,7 +64,8 @@ public class FunctionLiteral extends Literal {
     }
 
     @Override
-    public Value getValue(SymbolTable symbolTable) {
+    public Value getValue(SymbolTable symbolTable) throws SymbolsError {
+        symbolTable.assignGrammar(functionBody);
         return new FunctionValue(parameters, functionBody);
     }
 
