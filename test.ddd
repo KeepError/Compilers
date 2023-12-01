@@ -87,13 +87,12 @@ print "sum of matrix is", sum;
 var tup := {1, 2, {a:=4, b:=5, "qwe"}};
 
 var tup1 := tup.3;
-print tup.3.a;
+print "Element of tuple in tuple is: ", tup.3.a;
 
 
 var f1 := func(a) is
-  print tup1;
   var f2 := func (x) => x + a;
   return f2;
 end;
 
-print f1(3)(2);
+print "Result of sum in function closure is:", f1(3)(2);
